@@ -1,0 +1,73 @@
+BSD 3-Clause License
+
+Copyright (c) 2026-2027, Mohammed Shalaby, Shamma Jamali, Abdalla Elshaal, Mohamed Okasha.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are
+permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of
+   conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of
+   conditions and the following disclaimer in the documentation and/or other materials
+   provided with the distribution.
+
+3. Neither the name of the copyright holders nor the names of its contributors may be used
+   to endorse or promote products derived from this software without specific prior written
+   permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS
+OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+================================================================================
+SCOPE OF THIS LICENCE — THIRD-PARTY COMPONENTS ARE NOT COVERED
+================================================================================
+
+The licence above applies ONLY to code and documentation created by the authors, namely:
+
+  src/original/**            author-written acquisition and firmware source
+  src/firmware/**            copies of the above
+  src/acquisition/**         copies of the above
+  analysis/**                author-written reproduction code
+  tests/**                   author-written tests
+  docs/**, README.md, DATA_PROVENANCE.md, CHANGELOG.md
+  config/*.json              author-produced configuration
+
+It does NOT apply to, and the authors assert NO rights over:
+
+  * pypylon and the Basler pylon SDK            (Basler AG licence terms)
+  * pupil_apriltags and the AprilTag library    (AprilTag: BSD 2-Clause, University of
+                                                 Michigan; pupil_apriltags: see its own
+                                                 licence)
+  * OpenCV                                      (Apache-2.0 for 4.5.0+)
+  * NumPy, SciPy, pandas, matplotlib, openpyxl, pytest  (their own licences)
+  * Arduino core libraries, Teensyduino and the SparkFun ISM330DHCX driver library
+                                                (their own licences)
+  * any vendor firmware, SDK or sample code
+
+These components are referenced or imported, not redistributed here, except where an
+upstream licence explicitly permits inclusion. Users must obtain them from their
+respective upstream sources and comply with those licences.
+
+Vendor datasheets (Basler, Ricoh, SparkFun/STMicroelectronics, UIROBOT) are NOT
+redistributed in this repository. Hardware specifications quoted in docs/HARDWARE.md are
+cited for identification; consult the manufacturers' own documents for authoritative
+values.
+
+================================================================================
+DATA LICENCE
+================================================================================
+
+The raw campaign data under data/raw/ is released under
+Creative Commons Attribution 4.0 International (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+If you use the data, cite the paper and this repository as described in CITATION.cff.

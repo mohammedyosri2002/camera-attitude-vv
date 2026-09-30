@@ -1,0 +1,32 @@
+{
+  "_note": "Informational copy. The reproduction pipeline reads intrinsics from EACH RUN'S OWN camera metadata so a run can never be reprocessed with intrinsics it was not acquired with.",
+  "_source": "data/raw/board_y/run05/camera_run05_AXIS_B_20260920_183630_meta.json",
+  "camera_matrix": [
+    [
+      1443.2496917062335,
+      0.0,
+      963.2151010468531
+    ],
+    [
+      0.0,
+      1443.737705496836,
+      580.3332937596235
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "dist_coeffs": [
+    -0.1575447,
+    0.16190211,
+    -0.00044674,
+    -0.00022088,
+    -0.11840788
+  ],
+  "resolution_px": [
+    1920,
+    1200
+  ]
+}

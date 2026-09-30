@@ -1,0 +1,52 @@
+{
+  "_derived_from": "data/raw/board_y/run05/motor_events.csv",
+  "nominal_static_targets_deg": [
+    0.0,
+    5.0,
+    10.0,
+    15.0,
+    20.0,
+    15.0,
+    10.0,
+    5.0,
+    0.0,
+    -5.0,
+    -10.0,
+    -15.0,
+    -20.0,
+    -15.0,
+    -10.0,
+    -5.0,
+    0.0
+  ],
+  "effective_commanded_targets_deg": [
+    0.0,
+    5.00625,
+    9.9984375,
+    15.0046875,
+    19.996875,
+    15.0046875,
+    9.9984375,
+    5.00625,
+    0.0,
+    -5.00625,
+    -9.9984375,
+    -15.0046875,
+    -19.996875,
+    -15.0046875,
+    -9.9984375,
+    -5.00625,
+    0.0
+  ],
+  "n_static_holds": 17,
+  "commanded_rate_magnitudes_dps": [
+    1.0,
+    2.0,
+    5.0,
+    10.0
+  ],
+  "n_rate_legs": 16,
+  "n_serial_events": 114,
+  "motor_span_s": 474.275,
+  "_note": "Static errors are computed against the EFFECTIVE commanded values, never the nominal request."
+}

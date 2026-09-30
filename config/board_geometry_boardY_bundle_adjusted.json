@@ -1,0 +1,68 @@
+{
+  "geometry_source": "camera_derived_bundle_adjustment_RUN05",
+  "_comment": "Refitted with the UNDISTORTED intrinsic matrix newK from cv2.getOptimalNewCameraMatrix, which is the matrix that belongs with the stored (undistorted) corner pixels. Supersedes the raw-camera_matrix fit preserved in board_geometry_boardY_bundle_adjusted_rawK_SUPERSEDED.json. Reproduce with analysis/board_y/refit_board_y_geometry.py.",
+  "_warning": "Camera-derived board geometry for the RUN05 mechanical configuration. NOT an independent dimensional reference and NOT mechanically measured. Call it the configured board layout.",
+  "_applies_to": "RUN05 / Board-Y configuration ONLY. Never apply to Board-X or yaw runs.",
+  "board_origin": "geometric centre of the four tag centres",
+  "tag_black_square_size_m": 0.07,
+  "tags": {
+    "0": {
+      "center_x_mm": -1.8362964492980405,
+      "center_y_mm": 123.14762936488734,
+      "rotation_deg": 0.0
+    },
+    "1": {
+      "center_x_mm": -125.46518994057251,
+      "center_y_mm": 1.436242448789506,
+      "rotation_deg": 91.76580007795354
+    },
+    "2": {
+      "center_x_mm": 3.2322668478753585,
+      "center_y_mm": -128.0804236900433,
+      "rotation_deg": 93.09497129895327
+    },
+    "3": {
+      "center_x_mm": 124.06921954199518,
+      "center_y_mm": 3.4965518763664374,
+      "rotation_deg": 91.56260403414716
+    }
+  },
+  "refit_report": {
+    "label": "undistorted newK",
+    "n_frames": 83,
+    "n_frames_4tag": 68,
+    "n_frames_3tag": 15,
+    "n_residuals": 2536,
+    "n_parameters": 507,
+    "rms_before_px": 1.1539098026129877,
+    "rms_after_px": 0.2583486740185349,
+    "optimizer": "scipy.optimize.least_squares, trf, x_scale=jac",
+    "termination": {
+      "xtol": 1e-14,
+      "ftol": 1e-14,
+      "gtol": 1e-14,
+      "max_nfev": 600,
+      "status": 2,
+      "nfev": 9,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    "sigma_mm_deg": {
+      "tag1": [
+        0.07094132877081698,
+        0.05882657703032069,
+        0.03176802475461977
+      ],
+      "tag2": [
+        0.10655706529206121,
+        0.06224309570135559,
+        0.029515042680060433
+      ],
+      "tag3": [
+        0.06433145503225156,
+        0.06344336861265845,
+        0.02846673266893091
+      ]
+    },
+    "rms_px": 0.2583486740185349
+  }
+}

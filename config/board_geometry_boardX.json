@@ -1,0 +1,27 @@
+{
+  "geometry_source": "camera_derived_planar_homography",
+  "_warning": "Development geometry derived from camera planar homography. Mechanically measure/verify dimensions before final publication.",
+  "tag_black_square_size_m": 0.07,
+  "tags": {
+    "0": {
+      "center_x_mm": 0.08391670403798823,
+      "center_y_mm": 122.25329607918434,
+      "rotation_deg": 0.0
+    },
+    "1": {
+      "center_x_mm": -129.52431942135357,
+      "center_y_mm": 1.3118221152408438,
+      "rotation_deg": 91.48042985109868
+    },
+    "2": {
+      "center_x_mm": 3.8466169530522003,
+      "center_y_mm": -124.3858647227106,
+      "rotation_deg": 92.910733891956
+    },
+    "3": {
+      "center_x_mm": 125.59378576426339,
+      "center_y_mm": 0.8207465282853832,
+      "rotation_deg": 91.54992421430876
+    }
+  }
+}

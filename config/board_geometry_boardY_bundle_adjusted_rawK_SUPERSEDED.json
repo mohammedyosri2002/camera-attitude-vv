@@ -1,0 +1,30 @@
+{
+  "_comment": "RUN05 camera-derived bundle-adjusted geometry. Do not use for earlier runs.",
+  "_applies_to": "RUN05 only",
+  "geometry_source": "camera_derived_bundle_adjustment_RUN05_rawK_SUPERSEDED",
+  "board_origin": "geometric centre of the four tag centres",
+  "tag_black_square_size_m": 0.07,
+  "tags": {
+    "0": {
+      "center_x_mm": -1.7651486625523285,
+      "center_y_mm": 122.98045444386463,
+      "rotation_deg": 0.0
+    },
+    "1": {
+      "center_x_mm": -125.37363744991478,
+      "center_y_mm": 1.6679224231798098,
+      "rotation_deg": 91.6556704500815
+    },
+    "2": {
+      "center_x_mm": 2.78100013891245,
+      "center_y_mm": -127.91192180474718,
+      "rotation_deg": 92.85912287316637
+    },
+    "3": {
+      "center_x_mm": 124.35778597355466,
+      "center_y_mm": 3.263544937702738,
+      "rotation_deg": 91.44319109729427
+    }
+  },
+  "_status": "SUPERSEDED. Fitted with the RAW camera_matrix applied to UNDISTORTED corner coordinates (7.54 % focal-length error). Retained for traceability only. Do NOT use. See results/board_y_geometry_refit.json."
+}

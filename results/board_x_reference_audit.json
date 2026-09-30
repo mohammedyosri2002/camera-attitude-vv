@@ -1,0 +1,72 @@
+{
+  "run": "board_x/axis_b_run01",
+  "original_label": "run01_AXIS_B",
+  "submitted_rmse_deg": 0.2678,
+  "acquisition_reference_frames": [
+    0,
+    199
+  ],
+  "acquisition_reference_frames_usable": 200,
+  "acquisition_pool_motor_clock_s": [
+    87.72026856725097,
+    90.23872019114593
+  ],
+  "motor_baseline_window_s": [
+    119.31906,
+    179.31976
+  ],
+  "pool_precedes_baseline_by_s": 29.080339808854063,
+  "variants": {
+    "A": {
+      "Bias": 0.21971670692856476,
+      "MAE": 0.23450124801565195,
+      "RMSE": 0.26783489499021323,
+      "STD": 0.1531749642567691,
+      "MaxAbs": 0.46909510711556557,
+      "N": 9499
+    },
+    "B": {
+      "Bias": 0.21971670692861336,
+      "MAE": 0.23450124801574268,
+      "RMSE": 0.2678348949902406,
+      "STD": 0.15317496425674726,
+      "MaxAbs": 0.46909510711499536,
+      "N": 9499
+    },
+    "C": {
+      "Bias": 0.21964668881834196,
+      "MAE": 0.23679813414908787,
+      "RMSE": 0.2707663326215227,
+      "STD": 0.15834259833670292,
+      "MaxAbs": 0.48009990120974777,
+      "N": 9499
+    },
+    "D": {
+      "Bias": 0.21971670692861336,
+      "MAE": 0.23450124801574268,
+      "RMSE": 0.2678348949902406,
+      "STD": 0.15317496425674726,
+      "MaxAbs": 0.46909510711499536,
+      "N": 9499
+    }
+  },
+  "samplewise_difference_deg": {
+    "acq_ref_euler_max": 4.441564529361619e-10,
+    "acq_ref_euler_median": 1.0436096431476471e-14,
+    "acq_ref_euler_rms": 1.0171700200576162e-11,
+    "acq_ref_projection_max": 0.020938533809999882,
+    "offline_ref_euler_max": 4.441564529361619e-10,
+    "full_relative_pose_geodesic_max": 0.0,
+    "full_relative_pose_geodesic_median": 0.0
+  },
+  "reference_choice_explains_deg": 0.0,
+  "residual_unexplained_deg": 3.489499024061926e-05,
+  "submitted_value_reproduced_from_raw_corners": true,
+  "calibrated_axis": [
+    0.9992207305095521,
+    -0.019443467254056657,
+    -0.03434942941443853
+  ],
+  "axis_dominance": 73.85543683318832,
+  "conclusion": "Reproduced from raw corners with the acquisition reference construction."
+}

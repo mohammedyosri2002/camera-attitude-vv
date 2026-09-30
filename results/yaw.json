@@ -1,0 +1,112 @@
+{
+  "run_key": "yaw",
+  "canonical_axis": "yaw",
+  "original_run_label": "result_yaw/test1 + result_yaw/test2",
+  "pose_source": "acquisition_logged",
+  "scalar_attitude": "fused_in_plane_yaw (per-tag fusion; pre-dates the rigid-board estimator)",
+  "static": {
+    "camera_vs_commanded": {
+      "Bias": 0.1706413822887027,
+      "MAE": 0.1801046429687424,
+      "RMSE": 0.2205833403059897,
+      "MaxAbs": 0.6770323358753103,
+      "N": null
+    },
+    "gravity_vs_commanded": null,
+    "camera_vs_gravity": null,
+    "note": "yaw acquisition logged no roll/pitch: no gravity-tilt reference exists"
+  },
+  "dynamic": {
+    "camera_raw_rate_vs_commanded": {
+      "Bias": 0.006720608298673751,
+      "MAE": 3.962678501407934,
+      "RMSE": 5.247050135553557,
+      "MaxAbs": 27.04065825444559
+    },
+    "gyro_vs_commanded": {
+      "Bias": 0.01296176313222118,
+      "MAE": 2.695667008906038,
+      "RMSE": 3.833467483583813,
+      "MaxAbs": 11.52089925341787
+    },
+    "camera_raw_rate_vs_gyro": {
+      "RMSE": 3.694289173706476,
+      "MAE": 2.738627048673905
+    }
+  },
+  "secondary_filtered_diagnostics_DO_NOT_COMPARE_WITH_RAW": {
+    "savitzky_golay_rate_RMSE_dps": 0.03516091462541199,
+    "kalman_rate_RMSE_dps": 0.04017090471870648,
+    "note": "Secondary only. Never substituted into the three-axis RAW comparison and never compared with a RAW out-of-plane derivative."
+  },
+  "sync": [
+    {
+      "Run": "Run01",
+      "Direction": "CW",
+      "Camera_File": "camera_run01_CW_20260914_104142.csv",
+      "IMU_File": "imu_teensy.CSV",
+      "Motor_ArduinoPC_Model": "t_arduino = a * t_perf_counter + b",
+      "Motor_ArduinoPC_a": 0.9984837224055083,
+      "Motor_ArduinoPC_b_s": -0.002358560529785336,
+      "Motor_ArduinoPC_ppm": -1516.277594491688,
+      "Motor_ArduinoPC_Residual_SD_ms": 1.226803733637943,
+      "Motor_Sync_Event_Count": 94,
+      "Motor_Sync_Event_Expected": 94,
+      "Motor_Sync_Event_Span_s": 748.0511000429997,
+      "Motor_WallClock_a": 0.9984837223463804,
+      "Motor_WallClock_ppm": -1516.277653619613,
+      "Camera_Frames": 69116,
+      "Camera_Median_Rate_Hz": 82.70344837862174,
+      "Camera_Sign_Applied": -1,
+      "Camera_Stationary_Sigma_deg": 0.03297267397920812,
+      "Camera_Stationary_Drift_deg_per_h": -0.3786915349726944,
+      "IMU_Motor_Model": "t_arduino = a_imu * t_teensy + b_imu",
+      "IMU_Motor_a": 0.9984836317506625,
+      "IMU_Motor_b_s": -62.91981178334624,
+      "IMU_Motor_ppm": -1516.368249337541,
+      "IMU_Motor_Residual_dps_RMS": 0.408360387230727,
+      "IMU_Motor_OffsetOnly_Residual_dps_RMS": 0.7991960869330964,
+      "IMU_Motor_Residual_Drift_ppm": 42.34182309113547,
+      "IMU_Motor_LocalOffset_Scatter_ms": 13.73128264809199,
+      "IMU_Motor_Features_Used": 20,
+      "Gyro_Axis": "Z",
+      "Gyro_Sign": -1,
+      "Gyro_Stationary_Bias_dps": 0.1833992534178681,
+      "Primary_Method_Note": "Camera<->motor mapping taken from the serial event timestamps; never refitted by minimising camera-vs-motor residuals."
+    },
+    {
+      "Run": "Run02",
+      "Direction": "CCW",
+      "Camera_File": "camera_run02_CCW_20260914_121728.csv",
+      "IMU_File": "imu_teensy.CSV",
+      "Motor_ArduinoPC_Model": "t_arduino = a * t_perf_counter + b",
+      "Motor_ArduinoPC_a": 0.9984864686251059,
+      "Motor_ArduinoPC_b_s": -0.001690506519935298,
+      "Motor_ArduinoPC_ppm": -1513.531374894073,
+      "Motor_ArduinoPC_Residual_SD_ms": 1.130983305065935,
+      "Motor_Sync_Event_Count": 94,
+      "Motor_Sync_Event_Expected": 94,
+      "Motor_Sync_Event_Span_s": 748.0640056620014,
+      "Motor_WallClock_a": 0.9984864683842373,
+      "Motor_WallClock_ppm": -1513.531615762731,
+      "Camera_Frames": 79723,
+      "Camera_Median_Rate_Hz": 95.19898846545125,
+      "Camera_Sign_Applied": 1,
+      "Camera_Stationary_Sigma_deg": 0.02046611338384388,
+      "Camera_Stationary_Drift_deg_per_h": 0.1239279820502748,
+      "IMU_Motor_Model": "t_arduino = a_imu * t_teensy + b_imu",
+      "IMU_Motor_a": 0.9985010026022791,
+      "IMU_Motor_b_s": -106.4908470383844,
+      "IMU_Motor_ppm": -1498.997397720858,
+      "IMU_Motor_Residual_dps_RMS": 0.4068084043646983,
+      "IMU_Motor_OffsetOnly_Residual_dps_RMS": 0.7973987625589286,
+      "IMU_Motor_Residual_Drift_ppm": -27.74855550188674,
+      "IMU_Motor_LocalOffset_Scatter_ms": 11.56813107829287,
+      "IMU_Motor_Features_Used": 20,
+      "Gyro_Axis": "Z",
+      "Gyro_Sign": 1,
+      "Gyro_Stationary_Bias_dps": -0.1909495740412979,
+      "Primary_Method_Note": "Camera<->motor mapping taken from the serial event timestamps; never refitted by minimising camera-vs-motor residuals."
+    }
+  ]
+}

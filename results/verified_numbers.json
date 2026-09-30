@@ -1,0 +1,239 @@
+{
+  "_note": "Final corrected headline values used for IEEE Aerospace paper 2389. The motor is a PULSE-DERIVED COMMANDED REFERENCE, not ground truth.",
+  "yaw": {
+    "runs": [
+      "yaw/run01_CW",
+      "yaw/run02_CCW"
+    ],
+    "static_camera_vs_commanded": {
+      "RMSE": 0.2206,
+      "MAE": 0.1801,
+      "MaxAbs": 0.677
+    },
+    "dynamic_camera_raw_vs_commanded": {
+      "RMSE": 5.2471,
+      "MAE": 3.9627
+    },
+    "_secondary_not_gated": {
+      "savitzky_golay_rate_RMSE_dps": 0.0352,
+      "note": "secondary diagnostic only; never compared with RAW out-of-plane derivatives"
+    }
+  },
+  "board_x_headline": {
+    "run": "board_x/axis_b_run01",
+    "original_label": "run01_AXIS_B",
+    "static_camera_vs_commanded": {
+      "RMSE": 0.2678,
+      "MAE": 0.2345,
+      "Bias": 0.2197,
+      "MaxAbs": 0.4691
+    },
+    "static_camera_vs_gravity": {
+      "RMSE": 0.2894
+    },
+    "dynamic_camera_raw_vs_commanded": {
+      "RMSE": 1.2512
+    },
+    "dynamic_gyro_vs_commanded": {
+      "RMSE": 0.8535
+    }
+  },
+  "board_y": {
+    "run": "board_y/run05",
+    "original_label": "RUN05",
+    "_status": "FINAL. Board layout refitted with the undistorted intrinsic matrix newK (analysis/board_y/refit_board_y_geometry.py) and pose re-solved from raw corner pixels with the same matrix.",
+    "geometry_file": "board_geometry_boardY_bundle_adjusted.json",
+    "static_camera_vs_commanded": {
+      "Bias": 0.2741,
+      "MAE": 0.2754,
+      "RMSE": 0.2918,
+      "MaxAbs": 0.4939,
+      "N": 14354
+    },
+    "static_gravity_vs_commanded": {
+      "RMSE": 0.3879
+    },
+    "static_camera_vs_gravity": {
+      "Bias": 0.0128,
+      "MAE": 0.1949,
+      "RMSE": 0.2474,
+      "MaxAbs": 1.1935,
+      "N": 14354
+    },
+    "dynamic_camera_raw_vs_commanded": {
+      "Bias": 0.0031,
+      "MAE": 0.9414,
+      "RMSE": 1.3095,
+      "MaxAbs": 11.6562,
+      "N": 12175
+    },
+    "dynamic_gyro_vs_commanded": {
+      "Bias": 0.0044,
+      "MAE": 0.5891,
+      "RMSE": 0.8759,
+      "MaxAbs": 6.5295,
+      "N": 22208
+    },
+    "dynamic_camera_raw_vs_gyro": {
+      "RMSE": 1.2735
+    },
+    "rate_scale_pct": {
+      "min": -0.7,
+      "max": 0.52
+    },
+    "conditioning": {
+      "n_frames": 67436,
+      "valid_pose_pct": 100.0,
+      "branch_flips": 0,
+      "ambiguous_frames": 0,
+      "four_tag_visibility_pct": 89.3959,
+      "reprojection_median_px": 0.262,
+      "reprojection_mean_px": 0.2604,
+      "candidate_separation_min_deg": 24.197,
+      "candidate_separation_max_deg": 103.492,
+      "reprojection_ratio_min": 10.931,
+      "reprojection_ratio_max": 23.73
+    },
+    "hinge_axis_board_frame": [
+      -0.0351,
+      0.99924,
+      -0.01695
+    ],
+    "separation_from_board_x_deg": 87.1
+  },
+  "replication": {
+    "axis_a": {
+      "static_camera_vs_commanded_RMSE": 0.3203,
+      "static_camera_vs_gravity_RMSE": 0.3263
+    },
+    "run04": {
+      "static_camera_vs_commanded_RMSE": 0.5698,
+      "static_camera_vs_gravity_RMSE": 0.3042
+    }
+  },
+  "_SUPERSEDED_NOTICE": "The Board-Y (RUN05) values originally submitted were computed with the RAW camera_matrix applied to UNDISTORTED corner coordinates - a 7.54 % focal-length error (fx 1443.25 vs 1334.37). The acquisition itself undistorts each frame and solves with newK from getOptimalNewCameraMatrix, so newK is the matrix that belongs with the logged corners. Board-X and yaw values are UNAFFECTED and reproduce exactly. See results/board_x_reference_audit.json and docs/GEOMETRY.md.",
+  "board_y_AS_SUBMITTED_SUPERSEDED": {
+    "run": "board_y/run05",
+    "original_label": "RUN05",
+    "static_camera_vs_commanded": {
+      "Bias": 0.2814,
+      "MAE": 0.2826,
+      "RMSE": 0.2987,
+      "MaxAbs": 0.4765,
+      "N": 14354
+    },
+    "static_gravity_vs_commanded": {
+      "RMSE": 0.3879
+    },
+    "static_camera_vs_gravity": {
+      "Bias": 0.02,
+      "MAE": 0.2102,
+      "RMSE": 0.2641,
+      "MaxAbs": 1.2128,
+      "N": 14354
+    },
+    "dynamic_camera_raw_vs_commanded": {
+      "Bias": 0.0031,
+      "MAE": 0.9427,
+      "RMSE": 1.3117,
+      "MaxAbs": 11.7056,
+      "N": 12175
+    },
+    "dynamic_gyro_vs_commanded": {
+      "Bias": 0.0044,
+      "MAE": 0.5891,
+      "RMSE": 0.8759,
+      "MaxAbs": 6.5295,
+      "N": 22208
+    },
+    "dynamic_camera_raw_vs_gyro": {
+      "RMSE": 1.2749
+    },
+    "rate_scale_pct": {
+      "min": -0.47,
+      "max": 0.75
+    },
+    "conditioning": {
+      "n_frames": 67436,
+      "valid_pose_pct": 100.0,
+      "branch_flips": 0,
+      "ambiguous_frames": 0,
+      "four_tag_visibility_pct": 89.3959,
+      "reprojection_median_px": 0.3676,
+      "reprojection_mean_px": 0.3612,
+      "candidate_separation_min_deg": 24.139,
+      "candidate_separation_max_deg": 103.605,
+      "reprojection_ratio_min": 7.517,
+      "reprojection_ratio_max": 15.049
+    },
+    "hinge_axis_board_frame": [
+      -0.03299,
+      0.99931,
+      -0.01695
+    ],
+    "separation_from_board_x_deg": 87.1,
+    "_status": "SUPERSEDED - computed with an incorrect intrinsic matrix. Retained for traceability. Do NOT use in the paper."
+  },
+  "board_y_SUPERSEDED_rev2_rawK_geometry": {
+    "run": "board_y/run05",
+    "original_label": "RUN05",
+    "_status": "SUPERSEDED (revision 2). Computed with the RUN05 board layout that had itself been bundle-adjusted with the raw camera_matrix. Retained for traceability. Do NOT use.",
+    "static_camera_vs_commanded": {
+      "Bias": 0.2186,
+      "MAE": 0.2212,
+      "RMSE": 0.2539,
+      "MaxAbs": 0.4847,
+      "N": 14354
+    },
+    "static_gravity_vs_commanded": {
+      "RMSE": 0.3879
+    },
+    "static_camera_vs_gravity": {
+      "Bias": -0.0427,
+      "MAE": 0.1626,
+      "RMSE": 0.2164,
+      "MaxAbs": 1.2374,
+      "N": 14354
+    },
+    "dynamic_camera_raw_vs_commanded": {
+      "Bias": 0.0032,
+      "MAE": 0.9354,
+      "RMSE": 1.3004,
+      "MaxAbs": 11.4606,
+      "N": 12175
+    },
+    "dynamic_gyro_vs_commanded": {
+      "Bias": 0.0044,
+      "MAE": 0.5891,
+      "RMSE": 0.8759,
+      "MaxAbs": 6.5295,
+      "N": 22208
+    },
+    "dynamic_camera_raw_vs_gyro": {
+      "RMSE": 1.2679
+    },
+    "rate_scale_pct": {
+      "min": -1.39,
+      "max": -0.17
+    },
+    "conditioning": {
+      "n_frames": 67436,
+      "valid_pose_pct": 100.0,
+      "branch_flips": 0,
+      "ambiguous_frames": 0,
+      "four_tag_visibility_pct": 89.3959,
+      "reprojection_median_px": 0.2815,
+      "reprojection_mean_px": 0.2889,
+      "candidate_separation_min_deg": 25.02,
+      "candidate_separation_max_deg": 103.783,
+      "reprojection_ratio_min": 6.751,
+      "reprojection_ratio_max": 20.833
+    },
+    "hinge_axis_board_frame": [
+      -0.03494,
+      0.99926,
+      -0.01625
+    ],
+    "separation_from_board_x_deg": 87.1
+  }
+}

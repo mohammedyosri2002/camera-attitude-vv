@@ -1,0 +1,191 @@
+{
+  "run": "board_y/run05",
+  "camera_file": "camera_run05_AXIS_B_20260920_183630.csv",
+  "raw_camera_matrix_fx": 1443.2496917062335,
+  "undistorted_newK_fx": 1334.366626925484,
+  "focal_length_difference_pct": 8.159906174484233,
+  "stored_geometry_produced_with": "raw camera_matrix",
+  "documentary_evidence": "The original exporter (export_run05_geometry.py) read meta['camera_matrix'] and never called cv2.getOptimalNewCameraMatrix.",
+  "frame_selection_rule": "3 frames per static hold, evenly spaced by np.linspace over the window trimmed 1.5 s at each end; 2 frames per rate leg, evenly spaced over the central 70 % of the leg; a frame is kept only if >= 3 expected tags are visible and pose_ok == 1",
+  "n_frames_selected": 83,
+  "gauge_constraints": "tag 0 fixed in position and at rotation_deg = 0 during the fit; centroid of the four centres re-centred to the origin afterwards (pure translation, absorbed by the pose)",
+  "fixed_tag_size_m": 0.07,
+  "initial_geometry": "config/board_geometry_boardX.json",
+  "materiality_thresholds": {
+    "centre_mm": 0.05,
+    "rotation_deg": 0.01
+  },
+  "case": "B",
+  "conclusion": "Corrected refit changes the layout materially; the new geometry is saved and Board-Y processing must be rerun.",
+  "fits": {
+    "raw camera_matrix": {
+      "report": {
+        "label": "raw camera_matrix",
+        "n_frames": 83,
+        "n_frames_4tag": 68,
+        "n_frames_3tag": 15,
+        "n_residuals": 2536,
+        "n_parameters": 507,
+        "rms_before_px": 1.2137476463330201,
+        "rms_after_px": 0.35590271132418766,
+        "optimizer": "scipy.optimize.least_squares, trf, x_scale=jac",
+        "termination": {
+          "xtol": 1e-14,
+          "ftol": 1e-14,
+          "gtol": 1e-14,
+          "max_nfev": 600,
+          "status": 3,
+          "nfev": 17,
+          "message": "`xtol` termination condition is satisfied."
+        },
+        "sigma_mm_deg": {
+          "tag1": [
+            0.09753639297561961,
+            0.08122537728572536,
+            0.04362196760811944
+          ],
+          "tag2": [
+            0.1470281957290943,
+            0.08600500296935965,
+            0.04061088732029199
+          ],
+          "tag3": [
+            0.08908929197014087,
+            0.08741114833655957,
+            0.0392681953586887
+          ]
+        },
+        "rms_px": 0.35590271132418766
+      },
+      "geometry": {
+        "geometry_source": "tmp",
+        "_comment": "tmp",
+        "_warning": "Camera-derived board geometry for the RUN05 mechanical configuration. NOT an independent dimensional reference and NOT mechanically measured. Call it the configured board layout.",
+        "_applies_to": "RUN05 / Board-Y configuration ONLY. Never apply to Board-X or yaw runs.",
+        "board_origin": "geometric centre of the four tag centres",
+        "tag_black_square_size_m": 0.07,
+        "tags": {
+          "0": {
+            "center_x_mm": -1.7651486625523285,
+            "center_y_mm": 122.98045444386463,
+            "rotation_deg": 0.0
+          },
+          "1": {
+            "center_x_mm": -125.37363744991478,
+            "center_y_mm": 1.6679224231798098,
+            "rotation_deg": 91.6556704500815
+          },
+          "2": {
+            "center_x_mm": 2.78100013891245,
+            "center_y_mm": -127.91192180474718,
+            "rotation_deg": 92.85912287316637
+          },
+          "3": {
+            "center_x_mm": 124.35778597355466,
+            "center_y_mm": 3.263544937702738,
+            "rotation_deg": 91.44319109729427
+          }
+        }
+      },
+      "centre_shift_mm": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "rotation_shift_deg": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0
+      },
+      "max_centre_shift_mm": 0.0,
+      "max_rotation_shift_deg": 0.0
+    },
+    "undistorted newK": {
+      "report": {
+        "label": "undistorted newK",
+        "n_frames": 83,
+        "n_frames_4tag": 68,
+        "n_frames_3tag": 15,
+        "n_residuals": 2536,
+        "n_parameters": 507,
+        "rms_before_px": 1.1539098026129877,
+        "rms_after_px": 0.2583486740185349,
+        "optimizer": "scipy.optimize.least_squares, trf, x_scale=jac",
+        "termination": {
+          "xtol": 1e-14,
+          "ftol": 1e-14,
+          "gtol": 1e-14,
+          "max_nfev": 600,
+          "status": 2,
+          "nfev": 9,
+          "message": "`ftol` termination condition is satisfied."
+        },
+        "sigma_mm_deg": {
+          "tag1": [
+            0.07094132877081698,
+            0.05882657703032069,
+            0.03176802475461977
+          ],
+          "tag2": [
+            0.10655706529206121,
+            0.06224309570135559,
+            0.029515042680060433
+          ],
+          "tag3": [
+            0.06433145503225156,
+            0.06344336861265845,
+            0.02846673266893091
+          ]
+        },
+        "rms_px": 0.2583486740185349
+      },
+      "geometry": {
+        "geometry_source": "tmp",
+        "_comment": "tmp",
+        "_warning": "Camera-derived board geometry for the RUN05 mechanical configuration. NOT an independent dimensional reference and NOT mechanically measured. Call it the configured board layout.",
+        "_applies_to": "RUN05 / Board-Y configuration ONLY. Never apply to Board-X or yaw runs.",
+        "board_origin": "geometric centre of the four tag centres",
+        "tag_black_square_size_m": 0.07,
+        "tags": {
+          "0": {
+            "center_x_mm": -1.8362964492980405,
+            "center_y_mm": 123.14762936488734,
+            "rotation_deg": 0.0
+          },
+          "1": {
+            "center_x_mm": -125.46518994057251,
+            "center_y_mm": 1.436242448789506,
+            "rotation_deg": 91.76580007795354
+          },
+          "2": {
+            "center_x_mm": 3.2322668478753585,
+            "center_y_mm": -128.0804236900433,
+            "rotation_deg": 93.09497129895327
+          },
+          "3": {
+            "center_x_mm": 124.06921954199518,
+            "center_y_mm": 3.4965518763664374,
+            "rotation_deg": 91.56260403414716
+          }
+        }
+      },
+      "centre_shift_mm": {
+        "0": 0.18168506206554622,
+        "1": 0.24911336591826244,
+        "2": 0.4816996242125972,
+        "3": 0.3708946196541511
+      },
+      "rotation_shift_deg": {
+        "0": 0.0,
+        "1": 0.11012962787204117,
+        "2": 0.23584842578689802,
+        "3": 0.11941293685288201
+      },
+      "max_centre_shift_mm": 0.4816996242125972,
+      "max_rotation_shift_deg": 0.23584842578689802
+    }
+  },
+  "corrected_geometry_file": "board_geometry_boardY_bundle_adjusted_newK.json"
+}

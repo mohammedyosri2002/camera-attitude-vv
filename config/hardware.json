@@ -1,0 +1,48 @@
+{
+  "_note": "Hardware as used in the campaign. Values quoted for identification; consult the manufacturers' own datasheets for authoritative specifications. Datasheets are not redistributed here.",
+  "camera": {
+    "manufacturer": "Basler AG",
+    "model": "ace acA1920-40um",
+    "interface": "USB 3.0 monochrome",
+    "sensor": "Sony IMX249",
+    "acquisition_resolution_px": [
+      1920,
+      1200
+    ],
+    "pixel_format": "Mono8",
+    "exposure_us": 5000.0,
+    "gain_db": 0.0,
+    "auto_exposure": "disabled",
+    "auto_gain": "disabled"
+  },
+  "lens": {
+    "manufacturer": "Ricoh",
+    "model": "FL-CC0814A-2M",
+    "focal_length_mm": 8,
+    "type": "fixed focal length",
+    "mount": "C-mount",
+    "aperture_range": "F1.4-F16"
+  },
+  "imu": {
+    "module": "SparkFun ISM330DHCX",
+    "host": "Teensy 4.1",
+    "sensors": "three-axis accelerometer + three-axis gyroscope",
+    "logging": "microSD, raw, no on-board filtering",
+    "configured_odr_hz": 208,
+    "_cadence_note": "The timestamp-derived LOGGING CADENCE measured from the records differs from the configured ODR. Report it as a measured logging cadence, NOT as a physical ODR."
+  },
+  "motor": {
+    "manufacturer": "UIROBOT",
+    "model": "UIM5756PM",
+    "control": "STEP/DIR",
+    "commanded_pulses_per_rev": 25600,
+    "command_resolution_deg_per_pulse": 0.0140625,
+    "round_to_nearest_quantization_bound_deg": 0.00703125,
+    "wiring": {
+      "DIR": "D8",
+      "STEP": "D9",
+      "ENABLE": "D7"
+    },
+    "_reference_note": "PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No independent encoder-position telemetry was logged."
+  }
+}
