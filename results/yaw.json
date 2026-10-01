@@ -10,7 +10,7 @@
       "MAE": 0.1801046429687424,
       "RMSE": 0.2205833403059897,
       "MaxAbs": 0.6770323358753103,
-      "N": null
+      "N": 48369
     },
     "gravity_vs_commanded": null,
     "camera_vs_gravity": null,

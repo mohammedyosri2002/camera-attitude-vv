@@ -82,6 +82,18 @@ def main():
             note=("Secondary only. Never substituted into the three-axis RAW comparison "
                   "and never compared with a RAW out-of-plane derivative.")),
         sync=S.to_dict("records"))
+    # Export the pooled static camera sample count used by the
+    # headline yaw camera-vs-commanded-reference statistics.
+    n_cw = int(CW.loc[
+        CW["Requested_Angle_deg"].astype(str) == "POOLED_TOTAL",
+        "N_Camera"
+    ].iloc[-1])
+    n_ccw = int(CC.loc[
+        CC["Requested_Angle_deg"].astype(str) == "POOLED_TOTAL",
+        "N_Camera"
+    ].iloc[-1])
+    res["static"]["camera_vs_commanded"]["N"] = n_cw + n_ccw
+
     os.makedirs(cio.RESULTS, exist_ok=True)
     p = os.path.join(cio.RESULTS, "yaw.json")
     json.dump(res, open(p, "w"), indent=2, default=float)

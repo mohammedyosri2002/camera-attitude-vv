@@ -62,3 +62,17 @@ motor/IMU reference definitions are unchanged.
 ### Excluded
 - `RUNimu_teensy_0002.CSV` from the original RUN05 folder: byte-identical to the Board-X
   run04 manual-handling record. Documented in `DATA_PROVENANCE.md` and `data/MANIFEST.csv`.
+
+## v1.0.1-aeroconf2027 — 2026-10-01
+
+Metadata and reproducibility patch only. No experimental measurement,
+synchronization model, board geometry, headline accuracy result, or filtering
+parameter was changed.
+
+- Standardized the first-author metadata to the registered full name
+  Mohammed Yosri Shalaby, preserving Shalaby as the family name.
+- Aligned repository author ordering with IEEE Aerospace Conference paper 2389.
+- Added the previously omitted pooled yaw static sample count:
+  N = 48,369 samples (22,391 CW + 25,978 CCW).
+- The pooled yaw sample count is now exported automatically by the reproduction
+  pipeline rather than entered manually.
