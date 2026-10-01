@@ -1,0 +1,37 @@
+# Dynamic RAW per leg - Board Y
+
+One row per constant-rate leg, direction preserved. RAW instantaneous finite-difference derivative.
+
+Machine-readable source: [`../dynamic_per_leg_board_y.csv`](../dynamic_per_leg_board_y.csv)
+
+**Notes**
+
+- Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
+- N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
+- RAW-rate MaxAbs is a sample extreme and is not interpreted as a deterministic error bound; it scales with sample count.
+- Frozen evaluation windows: central 70 % of each constant-rate leg, unchanged from the published headline results.
+- camera_mean_rate_dps minus commanded_rate_dps is identically Camera_Cmd_Bias.
+- RAW instantaneous finite difference. SG results are in dynamic_sg_SECONDARY_*.csv and are never mixed in here.
+
+**Column abbreviations.** `Cam` = camera, `Cmd` = pulse-derived commanded reference, `Grav` = gravity-derived tilt, `Dir` = direction, `SG` = SECONDARY Savitzky-Golay processed rate, `|w|` = magnitude.
+
+Evaluation-grid columns are omitted here because each is constant for its column; see [`../README.md`](../README.md) for the grid of every comparison.
+
+| Leg | Cmd rate [deg/s] | Dir | Leg [s] | Cam mean rate [deg/s] | Gyro mean rate [deg/s] | Cam-Cmd Bias | Cam-Cmd MAE | Cam-Cmd RMSE | Cam-Cmd MaxAbs | Cam-Cmd N | Gyro-Cmd Bias | Gyro-Cmd MAE | Gyro-Cmd RMSE | Gyro-Cmd MaxAbs | Gyro-Cmd N | Cam-Gyro Bias | Cam-Gyro MAE | Cam-Gyro RMSE | Cam-Gyro MaxAbs | Cam-Gyro N |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | 1.000000 | positive | 19.998032 | 1.001543 | 1.003024 | 0.001543 | 0.764700 | 0.952172 | 3.220639 | 1707 | 0.003024 | 0.471739 | 0.586470 | 2.171772 | 3085 | -0.003112 | 0.780484 | 0.972939 | 4.126422 | 3085 |
+| 1 | -1.000000 | negative | 19.998048 | -0.998170 | -0.998390 | 0.001830 | 0.745735 | 0.943693 | 3.590475 | 1662 | 0.001610 | 0.473600 | 0.595645 | 2.065838 | 3082 | -0.002153 | 0.744373 | 0.936110 | 3.573385 | 3082 |
+| 2 | 1.000000 | positive | 19.998032 | 0.996688 | 1.006526 | -0.003312 | 0.743240 | 0.939368 | 4.016314 | 1675 | 0.006526 | 0.469313 | 0.582733 | 2.044382 | 3085 | -0.007010 | 0.702981 | 0.882054 | 3.311603 | 3085 |
+| 3 | -1.000000 | negative | 19.998044 | -0.998344 | -0.992130 | 0.001656 | 0.779818 | 0.988660 | 4.121696 | 1721 | 0.007870 | 0.482031 | 0.603958 | 1.866781 | 3086 | -0.008235 | 0.699836 | 0.892871 | 3.841024 | 3086 |
+| 4 | 2.000000 | positive | 9.999600 | 1.994265 | 2.003024 | -0.005735 | 0.797745 | 0.996088 | 3.519076 | 839 | 0.003024 | 0.412350 | 0.547648 | 2.247023 | 1543 | -0.010763 | 0.655090 | 0.824672 | 3.141501 | 1543 |
+| 5 | -2.000000 | negative | 9.999608 | -1.991117 | -1.996210 | 0.008883 | 0.779000 | 0.969357 | 4.787324 | 841 | 0.003790 | 0.390944 | 0.505601 | 1.921341 | 1543 | 0.004181 | 0.633927 | 0.809786 | 3.734147 | 1543 |
+| 6 | 2.000000 | positive | 9.999596 | 2.001133 | 2.000455 | 0.001133 | 0.811360 | 1.014268 | 4.451971 | 846 | 0.000455 | 0.415042 | 0.547876 | 2.114902 | 1542 | -0.000956 | 0.647892 | 0.820081 | 4.340562 | 1542 |
+| 7 | -2.000000 | negative | 9.999608 | -1.991587 | -1.995833 | 0.008413 | 0.801792 | 0.996210 | 4.439343 | 842 | 0.004167 | 0.401332 | 0.523490 | 1.987976 | 1542 | 0.001697 | 0.646154 | 0.814807 | 3.660396 | 1542 |
+| 8 | 5.000000 | positive | 4.000536 | 4.984285 | 4.997008 | -0.015715 | 1.419612 | 1.757135 | 6.123249 | 338 | -0.002992 | 0.854925 | 1.129702 | 4.455470 | 617 | -0.011184 | 1.356159 | 1.755719 | 5.496885 | 617 |
+| 9 | -5.000000 | negative | 4.000548 | -4.978440 | -4.998997 | 0.021560 | 1.323726 | 1.645219 | 4.675227 | 345 | 0.001003 | 0.836133 | 1.100878 | 3.288291 | 617 | 0.011567 | 1.348671 | 1.742676 | 5.839840 | 617 |
+| 10 | 5.000000 | positive | 4.000532 | 4.983035 | 4.990758 | -0.016965 | 1.276568 | 1.567633 | 4.922196 | 334 | -0.009242 | 0.853008 | 1.132759 | 4.555969 | 617 | -0.006558 | 1.233808 | 1.615347 | 5.497873 | 617 |
+| 11 | -5.000000 | negative | 4.000544 | -4.985758 | -4.990888 | 0.014242 | 1.376178 | 1.718290 | 5.693379 | 338 | 0.009112 | 0.832117 | 1.099082 | 3.392134 | 617 | 0.004829 | 1.327258 | 1.723410 | 5.069292 | 617 |
+| 12 | 10.000000 | positive | 2.000888 | 10.041570 | 10.066877 | 0.041570 | 2.380989 | 2.989310 | 8.874923 | 170 | 0.066877 | 2.080323 | 2.416220 | 4.904073 | 308 | -0.040012 | 2.500145 | 3.176749 | 9.810686 | 308 |
+| 13 | -10.000000 | negative | 2.000904 | -9.987978 | -10.033009 | 0.012022 | 2.753157 | 3.420588 | 9.419052 | 172 | -0.033009 | 2.239242 | 2.662847 | 6.445380 | 308 | 0.055335 | 2.738297 | 3.448508 | 8.855404 | 308 |
+| 14 | 10.000000 | positive | 2.000892 | 10.068137 | 10.057374 | 0.068137 | 2.659183 | 3.346814 | 8.589977 | 173 | 0.057374 | 2.077668 | 2.415799 | 4.842541 | 308 | -0.020144 | 2.803649 | 3.544570 | 9.924572 | 308 |
+| 15 | -10.000000 | negative | 2.000904 | -9.990387 | -10.020204 | 0.009613 | 2.778665 | 3.491160 | 11.656237 | 172 | -0.020204 | 2.206624 | 2.620451 | 6.529458 | 308 | 0.026859 | 2.753447 | 3.398492 | 9.491224 | 308 |

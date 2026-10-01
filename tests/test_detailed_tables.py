@@ -42,7 +42,9 @@ pytestmark = pytest.mark.skipif(
 
 
 def rd(name):
-    return pd.read_csv(os.path.join(T, name), comment="#")
+    # PURE CSV: no comment= needed. If a "#" line ever reappears before the header this
+    # read will produce a one-column frame and the structural tests below will fail.
+    return pd.read_csv(os.path.join(T, name))
 
 
 def raw(name):
@@ -137,18 +139,24 @@ def test_yaw_static_has_no_gravity_comparison(name):
     assert set(ys["comparison"]) == {"camera_commanded"}
 
 
-# ---- 6. SG tables are marked SECONDARY and kept out of the RAW tables ------------
+# ---- 6. SG stays SECONDARY, documented in README, kept out of the RAW tables ------
 @pytest.mark.parametrize("axis", AXES)
-def test_sg_tables_marked_secondary_and_separate(axis):
-    h = raw(f"dynamic_sg_SECONDARY_{axis}.csv")
-    assert "SECONDARY" in h
-    assert "1.00 s window" in h and "order 2" in h
-    assert "NOT RAW camera-rate accuracy" in h
-    assert "Not tuned per axis" in h
-    assert "Not optimized against an error metric" in h
+def test_sg_tables_separate_and_marked(axis):
+    # the filename itself carries SECONDARY, and the columns are SG_-prefixed
+    assert "SECONDARY" in f"dynamic_sg_SECONDARY_{axis}.csv"
+    assert [c for c in rd(f"dynamic_sg_SECONDARY_{axis}.csv").columns
+            if c.startswith("SG_")]
     for f in (f"dynamic_per_leg_{axis}.csv", f"dynamic_pooled_by_rate_{axis}.csv"):
         assert not [c for c in rd(f).columns if c.upper().startswith("SG")], \
             f"SG columns must not appear in the RAW table {f}"
+
+
+def test_sg_definition_documented_in_tables_readme():
+    h = open(os.path.join(T, "README.md")).read()
+    for frag in ("SECONDARY", "1.00 s window", "polynomial order 2", "first derivative",
+                 "zero-phase", "not tuned per axis",
+                 "NOT RAW camera-rate accuracy", "uniform-time resampling"):
+        assert frag in h, f"results/tables/README.md is missing: {frag}"
 
 
 # ---- 7. camera-gyro exists for dynamic RAW --------------------------------------
@@ -198,18 +206,91 @@ def test_long_form_is_complete_and_labelled():
             "gyro_commanded", "camera_gyro"} <= set(d["comparison"])
 
 
-# ---- 9. reference terminology ----------------------------------------------------
-DISCLAIMER = ("motor quantity = pulse-derived commanded reference. not ground truth, "
-              "not an actual angle, not a measured motor angle. no encoder-position "
-              "telemetry was logged.")
-
-
+# ---- 9. pure CSV, and reference terminology documented in the README ---------------
 @pytest.mark.parametrize("name", FILES)
-def test_no_forbidden_reference_terminology(name):
-    """Forbidden terms may appear ONLY inside the standard negating disclaimer."""
-    t = raw(name).lower()
-    assert DISCLAIMER in t, f"{name} is missing the commanded-reference disclaimer"
-    rest_of_file = t.replace(DISCLAIMER, "")
-    for bad in ("ground truth", "actual angle", "measured motor angle", "encoder"):
-        assert bad not in rest_of_file, \
-            f"{name} uses forbidden term '{bad}' outside the disclaimer"
+def test_csv_is_pure_and_renders_on_github(name):
+    """First line must be the column header; no comment/prose lines; rectangular."""
+    import csv as _csv
+    rows = list(_csv.reader(open(os.path.join(T, name))))
+    assert rows, f"{name} is empty"
+    assert not rows[0][0].lstrip().startswith("#"), \
+        f"{name} starts with a comment line; GitHub will not render it as a table"
+    width = len(rows[0])
+    assert width > 1, f"{name} header parsed as a single column"
+    ragged = [i for i, r in enumerate(rows) if len(r) != width]
+    assert not ragged, f"{name} has ragged rows at {ragged[:5]}"
+
+
+def test_all_tables_dir_csvs_are_pure():
+    """Covers every CSV in the directory, including those written by other modules."""
+    import csv as _csv, glob as _g
+    for p in sorted(_g.glob(os.path.join(T, "*.csv"))):
+        rows = list(_csv.reader(open(p)))
+        assert not rows[0][0].lstrip().startswith("#"), \
+            f"{os.path.basename(p)} still has a comment line before the header"
+        w_ = len(rows[0])
+        assert not [i for i, r in enumerate(rows) if len(r) != w_], \
+            f"{os.path.basename(p)} is ragged"
+
+
+def test_reference_terminology_documented_in_tables_readme():
+    h = open(os.path.join(T, "README.md")).read().lower()
+    assert "pulse-derived commanded reference" in h
+    for frag in ("not** ground truth", "no independent encoder-position telemetry"):
+        assert frag.replace("**", "") in h.replace("**", ""), f"README missing: {frag}"
+
+
+def test_no_forbidden_terminology_in_csv_payload(name=None):
+    """No CSV may contain the forbidden terms at all now that prose has been removed."""
+    import glob as _g
+    for p in sorted(_g.glob(os.path.join(T, "*.csv"))):
+        t = open(p).read().lower()
+        for bad in ("ground truth", "actual angle", "measured motor angle", "encoder"):
+            assert bad not in t, f"{os.path.basename(p)} contains '{bad}'"
+
+
+# ---- 10. Markdown copies and navigation README -----------------------------------
+MD_EXPECTED = ([f"static_per_hold_{a}" for a in AXES]
+               + [f"static_pooled_by_command_{a}" for a in AXES]
+               + [f"dynamic_per_leg_{a}" for a in AXES]
+               + [f"dynamic_pooled_by_rate_{a}" for a in AXES]
+               + [f"dynamic_sg_SECONDARY_{a}" for a in AXES]
+               + ["dynamic_displacement_rate_scale_by_rate"])
+
+
+@pytest.mark.parametrize("base", MD_EXPECTED)
+def test_markdown_copy_exists_and_is_a_table(base):
+    p = os.path.join(T, "markdown", f"{base}.md")
+    assert os.path.exists(p), f"missing Markdown copy for {base}"
+    body = open(p).read()
+    assert "|---" in body, f"{base}.md has no Markdown table separator"
+    assert body.lstrip().startswith("# "), f"{base}.md has no heading"
+
+
+def test_long_form_has_no_markdown_copy():
+    assert not os.path.exists(os.path.join(T, "markdown", "result_metrics_long.md")), \
+        "result_metrics_long must stay machine-readable only"
+
+
+def test_markdown_preserves_values():
+    """Spot-check: Board-Y pooled RMSE must appear unaltered in the Markdown copy."""
+    body = open(os.path.join(T, "markdown",
+                             "static_pooled_by_command_board_y.md")).read()
+    assert "0.291" in body
+
+
+def test_tables_readme_navigation_links_every_table():
+    h = open(os.path.join(T, "README.md")).read()
+    for name in FILES:
+        assert f"({name})" in h, f"results/tables/README.md does not link {name}"
+    for base in MD_EXPECTED:
+        assert f"markdown/{base}.md" in h, f"README does not link markdown/{base}.md"
+
+
+def test_tables_readme_documents_grids_and_caveats():
+    h = open(os.path.join(T, "README.md")).read()
+    for frag in ("Evaluation grids", "N is reported per comparison",
+                 "MaxAbs is a sample extreme", "identically |Bias|",
+                 "direction-separated", "Displacement rate-scale definition",
+                 "camera grid", "IMU grid"):
+        assert frag in h, f"results/tables/README.md is missing: {frag}"

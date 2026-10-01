@@ -1,8 +1,3 @@
-# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
-# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
-# Generated automatically from the same calculations as the wide tables.
-# processing_level: STATIC | RAW_DYNAMIC | SG_SECONDARY | DISPLACEMENT_SCALE.
-# SG_SECONDARY rows are a bandwidth-limited diagnostic and are NOT RAW accuracy.
 axis,run,original_run_label,segment_type,segment_id,commanded_value,direction,comparison,processing_level,metric,value,n,evaluation_grid
 board_x,board_x/axis_b_run01,run01_AXIS_B,hold,0,0.000000,initial,camera_commanded,STATIC,Bias,-0.007049,559,camera
 board_x,board_x/axis_b_run01,run01_AXIS_B,hold,0,0.000000,initial,camera_commanded,STATIC,MaxAbs,0.040470,559,camera

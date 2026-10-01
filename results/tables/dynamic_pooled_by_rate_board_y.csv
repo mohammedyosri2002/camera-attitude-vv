@@ -1,9 +1,3 @@
-# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
-# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
-# RAW-rate MaxAbs is a sample extreme and is not interpreted as a deterministic error bound; it scales with sample count.
-# Signed bias is reported direction-separated only. No pooled signed-bias column exists, because pooling opposite directions cancels it.
-# MAE and RMSE pooled at sample level by rate MAGNITUDE; signed bias stays direction-separated in *_Bias_Pos / *_Bias_Neg.
-# POOLED_TOTAL is sample-level over all legs of this axis.
 commanded_rate_magnitude_dps,n_legs_pos,n_legs_neg,Camera_Cmd_Bias_Pos,Camera_Cmd_Bias_Neg,Camera_Cmd_MAE,Camera_Cmd_RMSE,Camera_Cmd_MaxAbs,Camera_Cmd_N,Camera_Cmd_grid,Gyro_Cmd_Bias_Pos,Gyro_Cmd_Bias_Neg,Gyro_Cmd_MAE,Gyro_Cmd_RMSE,Gyro_Cmd_MaxAbs,Gyro_Cmd_N,Gyro_Cmd_grid,Camera_Gyro_Bias_Pos,Camera_Gyro_Bias_Neg,Camera_Gyro_MAE,Camera_Gyro_RMSE,Camera_Gyro_MaxAbs,Camera_Gyro_N,Camera_Gyro_grid
 1.000000,2,2,-0.000862,0.001742,0.758573,0.956400,4.121696,6765,camera,0.004775,0.004742,0.474171,0.592259,2.171772,12338,imu,-0.005061,-0.005196,0.731913,0.921698,4.126422,12338,imu (camera rate interpolated onto gyro times)
 2.000000,2,2,-0.002287,0.008648,0.797496,0.994140,4.787324,3368,camera,0.001740,0.003979,0.404916,0.531450,2.247023,6170,imu,-0.005861,0.002939,0.645765,0.817356,4.340562,6170,imu (camera rate interpolated onto gyro times)

@@ -1,8 +1,3 @@
-"# ALL camera-vs-commanded-reference rate errors. The motor is a PULSE-DERIVED COMMANDED REFERENCE, not ground truth."
-"# RAW_* : primary, plain finite difference, unsmoothed"
-"# SG_*  : SECONDARY DIAGNOSTIC ONLY, frozen Savitzky-Golay 1.00 s / order 2 / zero phase, identical for all axes, not tuned per axis. NEVER a RAW accuracy."
-# DISPSCALE_* : rate-SCALE metric (total travel / elapsed time per leg). NOT an instantaneous rate RMSE.
-"# Axes are NOT comparable with each other: rate ranges, travel and frame rates differ."
 axis,commanded_rate_dps,n_windows,RAW_Bias_dps,RAW_MAE_dps,RAW_RMSE_dps,RAW_MaxAbs_dps,RAW_N,SG_SECONDARY_Bias_dps,SG_SECONDARY_MAE_dps,SG_SECONDARY_RMSE_dps,SG_SECONDARY_MaxAbs_dps,SG_SECONDARY_N,DISPSCALE_min_pct,DISPSCALE_max_pct,sg_window_s,sg_polyorder,sg_window_samples,camera_fps_median_Hz
 yaw,1.0,,0.000946,1.518278,2.147882,13.284358,2840,-0.003719,0.035513,0.053807,0.414242,2840,-0.2518,-0.1976,1.0,2,88,88.02
 yaw,5.0,,0.001224,2.708655,3.630378,18.787158,2753,-0.003834,0.036643,0.048673,0.262021,2753,-0.0140,0.0217,1.0,2,88,88.02

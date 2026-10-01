@@ -1,5 +1,3 @@
-# Displacement-over-leg tracking metric: total camera angular travel divided by elapsed time. This is a rate SCALE metric and is NOT instantaneous rate accuracy.
-# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
 axis,run,commanded_rate_dps,direction,camera_displacement_rate_dps,scale_error_dps,scale_error_percent
 board_x,board_x/axis_b_run01,1.000000,positive,1.005614,0.005614,0.5614
 board_x,board_x/axis_b_run01,-1.000000,negative,-1.008665,-0.008665,0.8665

@@ -1,0 +1,37 @@
+# Static per hold - Board X
+
+One row per static dwell in acquisition order, with approach direction. Bias / SD / MaxAbs / N per comparison; MAE and RMSE omitted as redundant within a dwell.
+
+Machine-readable source: [`../static_per_hold_board_x.csv`](../static_per_hold_board_x.csv)
+
+**Notes**
+
+- Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
+- N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
+- Acquisition order preserved. approach_direction is a derived label and changes no residual.
+- Per-hold MAE and RMSE are omitted: within one dwell MAE is identically |Bias| and RMSE is identically sqrt(Bias^2+SD^2). They appear on the pooled-by-command table.
+- No POOLED_TOTAL here: pooling across different commanded angles is meaningless.
+
+**Column abbreviations.** `Cam` = camera, `Cmd` = pulse-derived commanded reference, `Grav` = gravity-derived tilt, `Dir` = direction, `SG` = SECONDARY Savitzky-Golay processed rate, `|w|` = magnitude.
+
+Evaluation-grid columns are omitted here because each is constant for its column; see [`../README.md`](../README.md) for the grid of every comparison.
+
+| Hold | Approach | Cmd ref [deg] | Pulses | Tags | Cam mean [deg] | Grav mean [deg] | Cam-Cmd Bias | Cam-Cmd SD | Cam-Cmd MaxAbs | Cam-Cmd N | Grav-Cmd Bias | Grav-Cmd SD | Grav-Cmd MaxAbs | Grav-Cmd N | Cam-Grav Bias | Cam-Grav SD | Cam-Grav MaxAbs | Cam-Grav N |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 0 | initial | 0.000000 | 0 | 4 | -0.007049 | 0.000517 | -0.007049 | 0.013026 | 0.040470 | 559 | 0.000517 | 0.225466 | 0.658319 | 1542 | -0.004073 | 0.159895 | 0.481719 | 559 |
+| 1 | ascending | 5.006250 | 356 | 4 | 5.315995 | 5.264822 | 0.309745 | 0.046576 | 0.403349 | 543 | 0.258572 | 0.247995 | 1.238270 | 1544 | 0.058790 | 0.195463 | 0.611527 | 543 |
+| 2 | ascending | 9.998437 | 711 | 4 | 10.382929 | 10.215813 | 0.384492 | 0.022169 | 0.440450 | 569 | 0.217376 | 0.212611 | 1.238913 | 1543 | 0.170109 | 0.179438 | 0.895143 | 569 |
+| 3 | ascending | 15.004688 | 1067 | 4 | 15.428314 | 15.252043 | 0.423627 | 0.019249 | 0.469095 | 539 | 0.247355 | 0.211220 | 0.907532 | 1543 | 0.174164 | 0.169730 | 0.767601 | 539 |
+| 4 | ascending | 19.996875 | 1422 | 4 | 20.184429 | 20.138068 | 0.187554 | 0.044786 | 0.269958 | 554 | 0.141193 | 0.161464 | 0.682739 | 1542 | 0.048059 | 0.135540 | 0.535955 | 554 |
+| 5 | descending | 15.004688 | 1067 | 4 | 15.385489 | 15.196826 | 0.380802 | 0.017887 | 0.430448 | 563 | 0.192138 | 0.203667 | 0.896215 | 1544 | 0.188404 | 0.177464 | 1.043341 | 563 |
+| 6 | descending | 9.998437 | 711 | 4 | 10.367926 | 10.198355 | 0.369489 | 0.014473 | 0.417908 | 550 | 0.199917 | 0.202101 | 1.143007 | 1543 | 0.164564 | 0.156501 | 0.643647 | 550 |
+| 7 | descending | 5.006250 | 356 | 4 | 5.261965 | 5.210709 | 0.255715 | 0.039012 | 0.330216 | 542 | 0.204459 | 0.264233 | 1.657392 | 1521 | 0.046731 | 0.219789 | 0.900452 | 542 |
+| 8 | descending | 0.000000 | 0 | 4 | 0.233763 | 0.262067 | 0.233763 | 0.057590 | 0.328530 | 582 | 0.262067 | 0.309337 | 1.278290 | 1544 | -0.024069 | 0.252224 | 0.913691 | 582 |
+| 9 | descending | -5.006250 | -356 | 4 | -4.741023 | -4.660179 | 0.265227 | 0.014902 | 0.297992 | 582 | 0.346071 | 0.248010 | 1.101981 | 1543 | -0.085245 | 0.177713 | 0.684224 | 582 |
+| 10 | descending | -9.998437 | -711 | 3 | -9.810456 | -9.546895 | 0.187982 | 0.020701 | 0.238467 | 571 | 0.451542 | 0.267737 | 1.470269 | 1544 | -0.273416 | 0.193140 | 0.937715 | 571 |
+| 11 | descending | -15.004688 | -1067 | 3 | -15.026701 | -14.669896 | -0.022013 | 0.032135 | 0.083047 | 575 | 0.334792 | 0.308287 | 1.709993 | 1543 | -0.336979 | 0.232896 | 1.089202 | 575 |
+| 12 | descending | -19.996875 | -1422 | 3 | -20.071281 | -19.663871 | -0.074406 | 0.062104 | 0.167509 | 564 | 0.333004 | 0.335569 | 1.372244 | 1543 | -0.410965 | 0.247435 | 1.279395 | 564 |
+| 13 | ascending | -15.004688 | -1067 | 3 | -14.961608 | -14.593840 | 0.043079 | 0.065882 | 0.166167 | 563 | 0.410848 | 0.323721 | 1.712170 | 1544 | -0.379136 | 0.260601 | 1.318035 | 563 |
+| 14 | ascending | -9.998437 | -711 | 3 | -9.795190 | -9.520191 | 0.203248 | 0.025834 | 0.267760 | 557 | 0.478247 | 0.237758 | 1.431399 | 1543 | -0.285490 | 0.188432 | 1.062689 | 557 |
+| 15 | ascending | -5.006250 | -356 | 4 | -4.685003 | -4.596297 | 0.321247 | 0.011808 | 0.358298 | 544 | 0.409953 | 0.257792 | 1.415431 | 1543 | -0.083800 | 0.192390 | 0.926056 | 544 |
+| 16 | ascending | 0.000000 | 0 | 4 | 0.295696 | 0.337766 | 0.295696 | 0.041977 | 0.358276 | 542 | 0.337766 | 0.269041 | 1.323211 | 1543 | -0.022335 | 0.230565 | 0.960071 | 542 |

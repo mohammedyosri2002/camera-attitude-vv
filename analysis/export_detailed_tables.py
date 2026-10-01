@@ -96,15 +96,270 @@ HDR_NOBIAS = ("# Signed bias is reported direction-separated only. No pooled sig
 LONG = []          # tidy long-form accumulator
 
 
-def w(path, header_lines, fieldnames, rows):
+# Registry of everything written, used to build the Markdown copies and
+# results/tables/README.md. Notes that used to be written as "#" lines inside the CSV
+# now live here and are rendered into the README and above each Markdown table, so that
+# every .csv under results/tables/ is PURE CSV whose FIRST LINE is the column header and
+# renders as a table on GitHub.
+REGISTRY = []
+
+# Markdown column abbreviations. Values are never altered, only the labels.
+ABBREV = [
+    ("commanded_rate_magnitude_dps", "Cmd rate |w| [deg/s]"),
+    ("commanded_reference_deg", "Cmd ref [deg]"),
+    ("camera_displacement_rate_dps", "Cam disp rate [deg/s]"),
+    ("scale_error_percent", "Scale err [%]"),
+    ("scale_error_dps", "Scale err [deg/s]"),
+    ("camera_mean_rate_dps", "Cam mean rate [deg/s]"),
+    ("gyro_mean_rate_dps", "Gyro mean rate [deg/s]"),
+    ("gravity_tilt_mean_deg", "Grav mean [deg]"),
+    ("camera_mean_deg", "Cam mean [deg]"),
+    ("commanded_rate_dps", "Cmd rate [deg/s]"),
+    ("approach_direction", "Approach"),
+    ("commanded_pulses", "Pulses"),
+    ("leg_duration_s", "Leg [s]"),
+    ("tags_visible", "Tags"),
+    ("hold_index", "Hold"),
+    ("leg_index", "Leg"),
+    ("n_visits", "Visits"),
+    ("n_legs_pos", "Legs +"),
+    ("n_legs_neg", "Legs -"),
+    ("n_legs_CW", "Legs CW"),
+    ("n_legs_CCW", "Legs CCW"),
+    ("camera_fps_median_Hz", "fps [Hz]"),
+    ("sg_window_samples", "SG win [smp]"),
+    ("sg_polyorder", "SG order"),
+    ("sg_window_s", "SG win [s]"),
+    ("SG_Camera_Cmd", "SG Cam-Cmd"),
+    ("Camera_Gravity", "Cam-Grav"),
+    ("Gravity_Cmd", "Grav-Cmd"),
+    ("Camera_Gyro", "Cam-Gyro"),
+    ("Camera_Cmd", "Cam-Cmd"),
+    ("Gyro_Cmd", "Gyro-Cmd"),
+    ("direction", "Dir"),
+    ("_MaxAbs", " MaxAbs"), ("_RMSE", " RMSE"), ("_MAE", " MAE"),
+    ("_Bias_Pos", " Bias+"), ("_Bias_Neg", " Bias-"),
+    ("_Bias_CW", " Bias CW"), ("_Bias_CCW", " Bias CCW"),
+    ("_Bias", " Bias"), ("_SD", " SD"), ("_N", " N"),
+]
+
+
+def md_label(col):
+    out = col
+    for a, b in ABBREV:
+        out = out.replace(a, b)
+    return out.replace("_", " ").strip()
+
+
+PURPOSE = {
+    "static_per_hold_": ("Static per hold", "One row per static dwell in acquisition "
+                         "order, with approach direction. Bias / SD / MaxAbs / N per "
+                         "comparison; MAE and RMSE omitted as redundant within a dwell."),
+    "static_pooled_by_command_": ("Static pooled by commanded angle", "Residual samples "
+                                  "pooled at each effective commanded angle, plus "
+                                  "POOLED_TOTAL."),
+    "dynamic_per_leg_": ("Dynamic RAW per leg", "One row per constant-rate leg, direction "
+                         "preserved. RAW instantaneous finite-difference derivative."),
+    "dynamic_pooled_by_rate_": ("Dynamic RAW pooled by rate magnitude", "RAW MAE / RMSE / "
+                                "MaxAbs pooled by rate magnitude; signed bias kept "
+                                "direction-separated."),
+    "dynamic_sg_SECONDARY_": ("SECONDARY Savitzky-Golay processed rate", "SECONDARY "
+                              "bandwidth-limited diagnostic. NOT RAW accuracy."),
+    "dynamic_displacement_rate_scale_by_rate": ("Displacement rate scale", "Total camera "
+                                                "angular travel over elapsed time per leg. "
+                                                "A rate SCALE metric, not instantaneous "
+                                                "rate accuracy."),
+    "result_metrics_long": ("Tidy long-form companion", "Every metric as one row. "
+                            "Machine-readable only."),
+}
+AXIS_NAME = {"yaw": "Yaw", "board_x": "Board X", "board_y": "Board Y"}
+
+
+def describe_table(base):
+    for k, (t, p_) in PURPOSE.items():
+        if base.startswith(k):
+            ax = base[len(k):]
+            return (f"{t} - {AXIS_NAME[ax]}" if ax in AXIS_NAME else t), p_
+    return base, ""
+
+
+def w(path, notes, fieldnames, rows, markdown=True, title=None, purpose=""):
+    """Write a PURE CSV: first line is the column header, no comment or prose lines.
+
+    `notes` is documentation. It is NOT written into the CSV; it is carried in REGISTRY
+    and rendered into results/tables/README.md and above the Markdown copy.
+    """
     with open(path, "w", newline="") as f:
-        for h in header_lines:
-            f.write(h + "\n")
         c = csv.DictWriter(f, fieldnames=fieldnames)
         c.writeheader()
         for r in rows:
             c.writerow({k: r.get(k, "") for k in fieldnames})
+    base = os.path.basename(path)[:-4]
+    _t, _p = describe_table(base)
+    REGISTRY.append(dict(csv_name=os.path.basename(path),
+                         title=title or _t,
+                         purpose=purpose or _p, notes=list(notes),
+                         fieldnames=list(fieldnames), rows=rows,
+                         markdown=markdown, n_rows=len(rows)))
     print(f"   {os.path.relpath(path, cio.REPO_ROOT)}  ({len(rows)} rows)")
+
+
+def write_markdown_copies():
+    """Human-readable Markdown copies under results/tables/markdown/.
+
+    Grid columns are omitted from the Markdown: each is a constant string for its
+    column and is documented in the legend instead. No comparison is dropped.
+    result_metrics_long.csv is deliberately excluded (machine-readable only).
+    """
+    d = os.path.join(T, "markdown")
+    os.makedirs(d, exist_ok=True)
+    n = 0
+    for e in REGISTRY:
+        if not e["markdown"]:
+            continue
+        cols = [c for c in e["fieldnames"] if not c.endswith("_grid")]
+        dropped = [c for c in e["fieldnames"] if c.endswith("_grid")]
+        L = [f"# {e['title']}", ""]
+        if e["purpose"]:
+            L += [e["purpose"], ""]
+        L += [f"Machine-readable source: [`../{e['csv_name']}`](../{e['csv_name']})", ""]
+        L += ["**Notes**", ""] + [f"- {x.lstrip('# ').strip()}" for x in e["notes"]] + [""]
+        L += ["**Column abbreviations.** `Cam` = camera, `Cmd` = pulse-derived commanded "
+              "reference, `Grav` = gravity-derived tilt, `Dir` = direction, "
+              "`SG` = SECONDARY Savitzky-Golay processed rate, `|w|` = magnitude.", ""]
+        if dropped:
+            L += ["Evaluation-grid columns are omitted here because each is constant for "
+                  "its column; see [`../README.md`](../README.md) for the grid of every "
+                  "comparison.", ""]
+        L += ["| " + " | ".join(md_label(c) for c in cols) + " |",
+              "|" + "|".join(["---"] * len(cols)) + "|"]
+        for r in e["rows"]:
+            L.append("| " + " | ".join(str(r.get(c, "")) for c in cols) + " |")
+        L.append("")
+        open(os.path.join(d, e["csv_name"][:-4] + ".md"), "w").write("\n".join(L))
+        n += 1
+    print(f"   {os.path.relpath(d, cio.REPO_ROOT)}/  ({n} Markdown tables)")
+    return n
+
+
+def write_tables_readme():
+    """results/tables/README.md: all metadata that used to live inside the CSV files."""
+    e = rest.describe()
+    L = ["# Detailed Result Tables", "",
+         "Full pairwise statistics behind every pooled headline value in IEEE Aerospace",
+         "Conference paper 2389. Generated by `python analysis/export_detailed_tables.py`",
+         "(also run automatically by `analysis/reproduce_all.py`) from the frozen pipeline",
+         "outputs, so they cannot move a headline number.", "",
+         "Every `.csv` in this directory is **pure CSV**: the first line is the column",
+         "header, there are no comment or prose lines, and GitHub renders each file as a",
+         "table. All documentation lives in this README and in the Markdown copies under",
+         "[`markdown/`](markdown/).", "",
+         "## Reference definition", "",
+         "The motor quantity is the **pulse-derived commanded reference**.", "",
+         "- It is **not** ground truth.",
+         "- It is **not** an actual or measured angle.",
+         "- **No independent encoder-position telemetry was logged** for this campaign.",
+         "",
+         "Resolution is 25 600 pulses/revolution = 0.0140625 deg/pulse, with",
+         "round-to-nearest command quantization of +/-0.00703125 deg.", "",
+         "## Evaluation grids, and why N differs per comparison", "",
+         "The three comparisons are evaluated on different grids, so",
+         "**N is reported per comparison** and never as a single generic sample count.",
+         "Every CSV carries explicit `*_grid` columns.", "",
+         "| Level | Comparison | Evaluation grid |", "|---|---|---|",
+         "| Static | Camera - Command | camera grid |",
+         "| Static | Gravity - Command | IMU grid (stationary-gated) |",
+         "| Static | Camera - Gravity | camera grid, gravity tilt interpolated/aligned onto camera times |",
+         "| Dynamic | Camera - Command | camera grid |",
+         "| Dynamic | Gyro - Command | IMU grid (the gyro is never resampled) |",
+         "| Dynamic | Camera - Gyro | IMU grid, camera rate interpolated onto IMU times |",
+         "",
+         "The cross-sensor comparison sits on the camera grid for static work and the IMU",
+         "grid for dynamic work. That asymmetry is deliberate: the stationary gravity",
+         "reference is gated on IMU samples, while the gyro is the rate reference and is",
+         "never resampled to make counts match.", "",
+         "Because all three static residuals share one reference, the Camera-Gravity",
+         "**Bias** is approximately the difference of the other two biases. Its **RMSE** is",
+         "not: common-mode platform departure cancels in the cross-sensor comparison,",
+         "which is why Camera-Gravity RMSE can fall below both comparisons against the",
+         "commanded reference.", "",
+         "## Pooling rules", "",
+         "Pooled rows use the exact N-weighted identities, algebraically identical to",
+         "recomputing from the concatenated residual samples:", "",
+         "```", "Bias   = sum(Bias_i * N_i) / sum(N_i)",
+         "MAE    = sum(MAE_i  * N_i) / sum(N_i)",
+         "RMSE   = sqrt( sum(RMSE_i^2 * N_i) / sum(N_i) )",
+         "MaxAbs = max(MaxAbs_i)", "```", "",
+         "Per-command and per-rate RMSE values are **never averaged** to form a total.",
+         "",
+         "## Why static per-hold tables omit MAE and RMSE", "",
+         "Within a single static dwell the residual rarely changes sign, so MAE is",
+         "identically |Bias| and RMSE is identically sqrt(Bias^2 + SD^2); both were",
+         "verified to machine precision on this data. Publishing them per hold would",
+         "present three columns as independent evidence when only two are. The",
+         "independent per-hold quantities are **Bias, SD, MaxAbs, N**. MAE and RMSE",
+         "reappear on the pooled-by-command tables, where repeated visits and sign changes",
+         "make them informative.", "",
+         "## Why signed bias stays direction-separated", "",
+         "Pooling opposite directions cancels signed bias. On Board X at 10 deg/s the",
+         "positive and negative legs are of opposite sign and pool to a value an order of",
+         "magnitude smaller than either. **No pooled signed-bias column is exported.**",
+         "Bias appears as `*_Bias_Pos` / `*_Bias_Neg` for Board X and Board Y, and as",
+         "`*_Bias_CW` / `*_Bias_CCW` for yaw, where direction is the **run** rather than",
+         "the leg sign (yaw rate segments are logged as magnitudes within each",
+         "single-direction run; no negative yaw legs are fabricated).", "",
+         "## RAW MaxAbs caveat", "",
+         "**RAW-rate MaxAbs is a sample extreme, not a deterministic error bound.** It",
+         "scales with sample count: it rises with frame rate and falls with harder leg",
+         "trimming, neither of which is a change in accuracy. For static holds MaxAbs does",
+         "bound a real excursion and needs no such caveat.", "",
+         "Separately, `camera_mean_rate_dps` minus the commanded rate is identically",
+         "`Camera_Cmd_Bias`. The mean-rate columns are a readability check, not independent",
+         "evidence.", "",
+         "## The three rate concepts are kept strictly separate", "",
+         "| Concept | Files | Status |", "|---|---|---|",
+         "| RAW instantaneous derivative | `dynamic_per_leg_*.csv`, `dynamic_pooled_by_rate_*.csv` | **PRIMARY** |",
+         "| SECONDARY processed rate | `dynamic_sg_SECONDARY_*.csv` | diagnostic only |",
+         "| Displacement rate scale | `dynamic_displacement_rate_scale_by_rate.csv` | scale metric |",
+         "", "### Savitzky-Golay definition", "",
+         f"- SECONDARY bandwidth-limited processed-rate **diagnostic only**",
+         f"- uniform-time resampling at the median sample interval",
+         f"- Savitzky-Golay, **{e['window_s']:.2f} s window**, **polynomial order "
+         f"{e['polyorder']}**, **first derivative**",
+         f"- zero-phase, offline",
+         f"- the **same frozen estimator for every axis**",
+         f"- **not tuned per axis**, **not optimized against an error metric**",
+         "- **NOT RAW camera-rate accuracy** and never a substitute for the RAW tables",
+         "",
+         "For yaw the frozen shared estimator is applied to the raw yaw angle per segment,",
+         "exactly as `analysis/rate_audit.py` does. The `camera_sg_rate_dps` column in the",
+         "yaw synchronized samples is the legacy yaw-pipeline estimator and is deliberately",
+         "**not** used here; it would report about 0.0352 deg/s instead of the frozen",
+         "0.0421 deg/s.", "",
+         "### Displacement rate-scale definition", "",
+         "Total camera angular travel over a constant-rate leg divided by elapsed time,",
+         "compared with the commanded rate. It carries no frame-to-frame numerical",
+         "differentiation, so it measures how faithfully the camera tracks commanded",
+         "angular travel. It is a rate **scale** / tracking-fidelity metric and is **not**",
+         "instantaneous rate accuracy.", "",
+         "## Yaw static", "",
+         "Yaw static supports **only Camera - Commanded reference**. The yaw acquisition",
+         "logged no roll/pitch, so no gravity-tilt comparison exists; no empty gravity",
+         "columns are emitted and no IMU absolute-yaw comparison is invented.", "",
+         "## Table index", "",
+         "| Table | CSV | Markdown | Purpose |", "|---|---|---|---|"]
+    for r in REGISTRY:
+        base = r["csv_name"][:-4]
+        md = (f"[view](markdown/{base}.md)" if r["markdown"] else "n/a (machine-readable)")
+        L.append(f"| `{base}` | [{r['csv_name']}]({r['csv_name']}) | {md} | "
+                 f"{r['purpose']} |")
+    L += ["", "`result_metrics_long.csv` is the tidy long-form companion: every metric as",
+          "one row with `axis, run, original_run_label, segment_type, segment_id,",
+          "commanded_value, direction, comparison, processing_level, metric, value, n,",
+          "evaluation_grid`. It is intentionally not rendered as Markdown.", ""]
+    p_ = os.path.join(T, "README.md")
+    open(p_, "w").write("\n".join(L))
+    print(f"   {os.path.relpath(p_, cio.REPO_ROOT)}")
 
 
 def f6(x):
@@ -698,8 +953,12 @@ def main(board_x_data=None, board_y_data=None):
        "# SG_SECONDARY rows are a bandwidth-limited diagnostic and are NOT RAW accuracy."],
       ["axis", "run", "original_run_label", "segment_type", "segment_id",
        "commanded_value", "direction", "comparison", "processing_level", "metric",
-       "value", "n", "evaluation_grid"], LONG)
-    print(f"\nDone. {len(LONG)} long-form metric rows.")
+       "value", "n", "evaluation_grid"], LONG, markdown=False)
+    print("\n[5/5] Markdown copies and results/tables/README.md ...")
+    write_markdown_copies()
+    write_tables_readme()
+    print(f"\nDone. {len(LONG)} long-form metric rows; "
+          f"{len(REGISTRY)} CSV tables, all pure CSV (header on line 1).")
 
 
 if __name__ == "__main__":

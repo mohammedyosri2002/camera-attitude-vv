@@ -1,7 +1,3 @@
-# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
-# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
-# Yaw static: camera minus commanded reference ONLY. No gravity-tilt comparison exists for yaw.
-# POOLED_TOTAL pools both directional runs at sample level.
 commanded_reference_deg,n_visits,camera_mean_deg,Camera_Cmd_Bias,Camera_Cmd_MAE,Camera_Cmd_RMSE,Camera_Cmd_MaxAbs,Camera_Cmd_N,Camera_Cmd_grid
 0.000000,2,0.001989,0.001989,0.025903,0.032140,0.165108,2851,camera
 5.006250,2,5.193672,0.187422,0.187441,0.205714,0.383814,2850,camera

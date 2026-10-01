@@ -95,3 +95,19 @@ result was changed.
 - Added per-comparison sample counts and explicit evaluation-grid metadata.
 - Added automated regression tests protecting all frozen headline results.
 
+## v1.1.1-aeroconf2027 — 2026-10-01
+
+Presentation and repository-usability patch only. No experimental data,
+analysis window, geometry, estimator parameter, synchronization result, or
+headline numerical result was changed.
+
+- Converted generated result CSV files to pure rectangular CSV with the
+  column header on line 1 so they render correctly on GitHub.
+- Moved explanatory table metadata to results/tables/README.md.
+- Added human-readable Markdown equivalents for the principal detailed
+  result tables.
+- Added navigation between machine-readable CSV and Markdown results.
+- Updated regression tests to enforce valid CSV/Markdown presentation.
+- Expanded test suite from 95 to 119 passing tests.
+- Reproduction gate remains 54/54 PASS.
+

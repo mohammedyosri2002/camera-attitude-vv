@@ -182,16 +182,12 @@ def main():
     out = os.path.join(T, "three_axis_rate_comparison.csv")
     with open(out, "w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["# ALL camera-vs-commanded-reference rate errors. The motor is a "
-                    "PULSE-DERIVED COMMANDED REFERENCE, not ground truth."])
-        w.writerow([f"# RAW_* : primary, plain finite difference, unsmoothed"])
-        w.writerow([f"# SG_*  : SECONDARY DIAGNOSTIC ONLY, frozen Savitzky-Golay "
-                    f"{e['window_s']:.2f} s / order {e['polyorder']} / zero phase, "
-                    f"identical for all axes, not tuned per axis. NEVER a RAW accuracy."])
-        w.writerow(["# DISPSCALE_* : rate-SCALE metric (total travel / elapsed time per "
-                    "leg). NOT an instantaneous rate RMSE."])
-        w.writerow(["# Axes are NOT comparable with each other: rate ranges, travel and "
-                    "frame rates differ."])
+        # PURE CSV: the first line is the column header. The explanatory notes that
+        # used to be written here as "#" rows (the commanded-reference definition, the
+        # RAW_ / SG_SECONDARY_ / DISPSCALE_ column-prefix meanings, and the warning that
+        # the axes are not comparable with one another) now live in
+        # results/tables/README.md, so GitHub renders this file as a table. The column
+        # prefixes themselves still carry the RAW / SECONDARY / scale distinction.
         w.writerow(["axis", "commanded_rate_dps", "n_windows",
                     "RAW_Bias_dps", "RAW_MAE_dps", "RAW_RMSE_dps", "RAW_MaxAbs_dps",
                     "RAW_N",
