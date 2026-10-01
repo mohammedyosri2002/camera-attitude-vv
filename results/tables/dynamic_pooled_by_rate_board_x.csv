@@ -1,0 +1,12 @@
+# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
+# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
+# RAW-rate MaxAbs is a sample extreme and is not interpreted as a deterministic error bound; it scales with sample count.
+# Signed bias is reported direction-separated only. No pooled signed-bias column exists, because pooling opposite directions cancels it.
+# MAE and RMSE pooled at sample level by rate MAGNITUDE; signed bias stays direction-separated in *_Bias_Pos / *_Bias_Neg.
+# POOLED_TOTAL is sample-level over all legs of this axis.
+commanded_rate_magnitude_dps,n_legs_pos,n_legs_neg,Camera_Cmd_Bias_Pos,Camera_Cmd_Bias_Neg,Camera_Cmd_MAE,Camera_Cmd_RMSE,Camera_Cmd_MaxAbs,Camera_Cmd_N,Camera_Cmd_grid,Gyro_Cmd_Bias_Pos,Gyro_Cmd_Bias_Neg,Gyro_Cmd_MAE,Gyro_Cmd_RMSE,Gyro_Cmd_MaxAbs,Gyro_Cmd_N,Gyro_Cmd_grid,Camera_Gyro_Bias_Pos,Camera_Gyro_Bias_Neg,Camera_Gyro_MAE,Camera_Gyro_RMSE,Camera_Gyro_MaxAbs,Camera_Gyro_N,Camera_Gyro_grid
+1.000000,2,2,0.007620,-0.003968,0.695863,0.911630,3.785325,4571,camera,-0.005905,0.004808,0.393110,0.489801,1.469492,12340,imu,0.011969,-0.011189,0.769048,0.971965,4.315552,12340,imu (camera rate interpolated onto gyro times)
+2.000000,2,2,0.021735,-0.013356,0.718744,0.941032,3.894278,2223,camera,-0.011403,0.011323,0.340724,0.442949,1.503801,6171,imu,0.031619,-0.023433,0.712381,0.929560,4.553630,6171,imu (camera rate interpolated onto gyro times)
+5.000000,2,2,0.041784,-0.044740,1.487039,1.840117,5.627732,909,camera,-0.027677,0.024672,1.204619,1.475498,4.255914,2467,imu,0.065723,-0.064977,1.974359,2.469565,6.935291,2467,imu (camera rate interpolated onto gyro times)
+10.000000,2,2,0.114607,-0.142930,2.385695,2.932411,9.517473,457,camera,-0.112348,0.132551,1.987154,2.319293,5.413297,1234,imu,0.208621,-0.263720,3.493478,4.064288,12.356420,1234,imu (camera rate interpolated onto gyro times)
+POOLED_TOTAL,8,8,0.021228,-0.018877,0.884870,1.251227,9.517473,8160,camera,-0.015752,0.015934,0.557245,0.853482,5.413297,22212,imu,0.034302,-0.034623,1.038531,1.536216,12.356420,22212,imu (camera rate interpolated onto gyro times)

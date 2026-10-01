@@ -76,3 +76,22 @@ parameter was changed.
   N = 48,369 samples (22,391 CW + 25,978 CCW).
 - The pooled yaw sample count is now exported automatically by the reproduction
   pipeline rather than entered manually.
+
+## v1.1-aeroconf2027 — 2026-10-01
+
+Detailed reproducibility-results release. No raw measurement, synchronization
+model, board geometry, evaluation window, filter parameter, or frozen headline
+result was changed.
+
+- Added reproducible static per-hold and pooled-by-command tables for Yaw,
+  Board X, and Board Y.
+- Added RAW dynamic per-leg and pooled-by-rate tables with all three pairwise
+  comparisons: camera-commanded, gyro-commanded, and camera-gyro.
+- Preserved signed rate bias by direction rather than pooling opposite signs.
+- Added separate SECONDARY Savitzky-Golay per-rate tables using the frozen
+  common 1.00-s, order-2 estimator.
+- Added consolidated displacement-based rate-scale results.
+- Added a machine-readable long-format result table.
+- Added per-comparison sample counts and explicit evaluation-grid metadata.
+- Added automated regression tests protecting all frozen headline results.
+

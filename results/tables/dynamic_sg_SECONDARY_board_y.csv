@@ -1,0 +1,9 @@
+# SECONDARY bandwidth-limited processed-rate diagnostic. Savitzky-Golay; uniform-time resampling; 1.00 s window; polynomial order 2; first derivative; zero-phase offline. Same frozen estimator for all axes. Not tuned per axis. Not optimized against an error metric. NOT RAW camera-rate accuracy and never a substitute for the RAW tables.
+# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
+# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
+commanded_rate_magnitude_dps,SG_Camera_Cmd_Bias_Pos,SG_Camera_Cmd_Bias_Neg,SG_Camera_Cmd_MAE,SG_Camera_Cmd_RMSE,SG_Camera_Cmd_MaxAbs,SG_Camera_Cmd_N,SG_Camera_Cmd_grid,sg_window_s,sg_polyorder,sg_window_samples,camera_fps_median_Hz
+1.000000,-0.000240,0.000382,0.031662,0.038778,0.118656,6765,camera,1.0,2,121,120.77
+2.000000,0.001747,-0.002353,0.034345,0.042589,0.098666,3368,camera,1.0,2,121,120.77
+5.000000,0.005128,-0.006559,0.033829,0.039179,0.091235,1355,camera,1.0,2,121,120.77
+10.000000,-0.183624,0.188507,0.220043,0.496291,2.333938,687,camera,1.0,2,121,120.77
+POOLED_TOTAL,-0.009438,0.009470,0.043275,0.124123,2.333938,12175,camera,1.0,2,121,120.77

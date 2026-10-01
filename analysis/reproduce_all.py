@@ -277,6 +277,20 @@ def main():
     except Exception as _e:
         print(f"   [note] rate audit skipped: {_e}")
 
+    # Detailed pairwise result tables. Feed the exporter the fresh in-memory
+    # Board-X/Board-Y outputs from this run, avoiding needless rewrites of
+    # tracked per-axis JSON files and environment-dependent float noise.
+    # Export failure is fatal: a reproducibility run must not report success
+    # without the detailed tables declared by this release.
+    import importlib.util as _il2
+    _sp2 = _il2.spec_from_file_location(
+        "export_detailed_tables",
+        os.path.join(cio.REPO_ROOT, "analysis", "export_detailed_tables.py"))
+    _m2 = _il2.module_from_spec(_sp2)
+    _sp2.loader.exec_module(_m2)
+    print("\n[6c/6] detailed pairwise result tables ...")
+    _m2.main(board_x_data=bx, board_y_data=by)
+
     gated = [r for r in rows if r["status"] != "NOT-GATED"]
     failed = [r for r in gated if r["status"] == "FAIL"]
     write_report(rows, ck, repro, failed, time.time() - t_start)

@@ -1,0 +1,15 @@
+# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
+# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
+# Samples pooled at sample level via exact N-weighted identities; RMSE is never averaged across commands.
+# Repeated visits to one command are pooled here; the per-hold table preserves approach direction and hysteresis.
+commanded_reference_deg,n_visits,camera_mean_deg,gravity_tilt_mean_deg,Camera_Cmd_Bias,Camera_Cmd_MAE,Camera_Cmd_RMSE,Camera_Cmd_MaxAbs,Camera_Cmd_N,Camera_Cmd_grid,Gravity_Cmd_Bias,Gravity_Cmd_MAE,Gravity_Cmd_RMSE,Gravity_Cmd_MaxAbs,Gravity_Cmd_N,Gravity_Cmd_grid,Camera_Gravity_Bias,Camera_Gravity_MAE,Camera_Gravity_RMSE,Camera_Gravity_MaxAbs,Camera_Gravity_N,Camera_Gravity_grid
+0.000000,3,0.188658,0.205485,0.188658,0.195758,0.240775,0.387177,2550,camera,0.205485,0.257233,0.309358,1.544809,4631,imu,-0.016753,0.110658,0.150876,0.897607,2550,camera (gravity tilt interpolated onto camera times)
+5.006250,2,5.230714,5.136392,0.224464,0.224464,0.231432,0.344050,1662,camera,0.130142,0.206553,0.280015,2.150652,3087,imu,0.093426,0.180424,0.241407,1.188385,1662,camera (gravity tilt interpolated onto camera times)
+9.998438,2,10.223271,10.057900,0.224833,0.224833,0.228817,0.330278,1678,camera,0.059463,0.185166,0.255470,1.367037,3090,imu,0.166546,0.229787,0.286664,1.047606,1678,camera (gravity tilt interpolated onto camera times)
+15.004688,2,15.305674,15.064309,0.300987,0.300987,0.301550,0.363565,1672,camera,0.059622,0.124032,0.157168,0.621024,3090,imu,0.242099,0.245219,0.272778,0.685433,1672,camera (gravity tilt interpolated onto camera times)
+19.996875,1,20.302996,20.006561,0.306121,0.306121,0.307610,0.396684,847,camera,0.009686,0.142889,0.193528,0.816387,1545,imu,0.294759,0.304719,0.340426,0.959869,847,camera (gravity tilt interpolated onto camera times)
+-5.006250,2,-4.652865,-4.545737,0.353385,0.353385,0.355773,0.438967,1687,camera,0.460513,0.461715,0.495073,1.279385,3057,imu,-0.106121,0.151913,0.192553,0.721494,1687,camera (gravity tilt interpolated onto camera times)
+-9.998438,2,-9.670608,-9.582633,0.327829,0.327829,0.334154,0.476933,1717,camera,0.415804,0.425079,0.470584,1.840165,3087,imu,-0.088131,0.162777,0.217134,1.193458,1717,camera (gravity tilt interpolated onto camera times)
+-15.004688,2,-14.703004,-14.518843,0.301684,0.301684,0.317387,0.493925,1694,camera,0.485844,0.492009,0.543072,1.565214,3086,imu,-0.185164,0.231285,0.282266,1.077860,1694,camera (gravity tilt interpolated onto camera times)
+-19.996875,1,-19.677161,-19.417845,0.319714,0.319714,0.325218,0.421347,847,camera,0.579030,0.582252,0.613048,1.964572,1543,imu,-0.258772,0.276745,0.316138,1.191347,847,camera (gravity tilt interpolated onto camera times)
+POOLED_TOTAL,17,,,0.274128,0.275389,0.291819,0.493925,14354,camera,0.260162,0.310707,0.387871,2.150652,26216,imu,0.012768,0.194907,0.247389,1.193458,14354,camera (gravity tilt interpolated onto camera times)

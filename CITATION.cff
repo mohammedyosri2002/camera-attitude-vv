@@ -25,7 +25,7 @@ keywords:
   - clock synchronization
   - small satellite testbed
 license: BSD-3-Clause
-version: "1.0.1-aeroconf2027"
+version: "1.1-aeroconf2027"
 date-released: "2026-10-01"
 repository-code: "https://github.com/mohammedyosri2002/camera-attitude-vv"
 url: "https://github.com/mohammedyosri2002/camera-attitude-vv"

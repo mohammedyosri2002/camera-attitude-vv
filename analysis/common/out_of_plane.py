@@ -130,8 +130,18 @@ def process(key: str, verbose=True):
         gi = np.interp(tc[mc], ti, tilt)     # raw tilt onto the camera grid
         e_cm, e_im, e_ci = c - h["target_deg"], gt - h["target_deg"], c - gi
         S["cm"].append(e_cm); S["im"].append(e_im); S["ci"].append(e_ci)
+        # approach_direction is a derived LABEL only; it changes no residual.
+        if i == 0:
+            approach = "initial"
+        elif h["target_deg"] > holds[i - 1]["target_deg"] + 1e-9:
+            approach = "ascending"
+        elif h["target_deg"] < holds[i - 1]["target_deg"] - 1e-9:
+            approach = "descending"
+        else:
+            approach = "repeat"
         hold_rows.append(dict(
-            hold=i, commanded_reference_deg=h["target_deg"], pulses=h["pulses"],
+            hold=i, approach_direction=approach,
+            commanded_reference_deg=h["target_deg"], pulses=h["pulses"],
             tags=int(np.median(sol["n_visible"][mc])),
             camera_mean_deg=float(c.mean()), gravity_tilt_mean_deg=float(gt.mean()),
             **{f"Camera_Motor_{k}": v for k, v in metrics(e_cm).items()},
@@ -193,6 +203,9 @@ def process(key: str, verbose=True):
         leg_rows.append(dict(leg=j, commanded_rate_dps=r,
                              **{f"SG_Camera_Motor_{k}": v for k, v in metrics(e_sg).items()},
                              direction="positive" if r > 0 else "negative",
+                             leg_duration_s=float(L["t1"] - L["t0"]),
+                             camera_mean_rate_dps=float(np.mean(c)),
+                             gyro_mean_rate_dps=float(np.mean(gy)),
                              **{f"Camera_Motor_{k}": v for k, v in metrics(e_cm).items()},
                              **{f"IMU_Motor_{k}": v for k, v in metrics(e_im).items()},
                              **{f"Camera_IMU_{k}": v for k, v in metrics(e_ci).items()}))

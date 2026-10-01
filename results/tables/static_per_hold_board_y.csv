@@ -1,0 +1,23 @@
+# Motor quantity = PULSE-DERIVED COMMANDED REFERENCE. Not ground truth, not an actual angle, not a measured motor angle. No encoder-position telemetry was logged.
+# N is PER COMPARISON. Evaluation grids differ by comparison; see the evaluation_grid columns and README 'Detailed Result Tables'.
+# Acquisition order preserved. approach_direction is a derived label and changes no residual.
+# Per-hold MAE and RMSE are omitted: within one dwell MAE is identically |Bias| and RMSE is identically sqrt(Bias^2+SD^2). They appear on the pooled-by-command table.
+# No POOLED_TOTAL here: pooling across different commanded angles is meaningless.
+hold_index,approach_direction,commanded_reference_deg,commanded_pulses,tags_visible,camera_mean_deg,gravity_tilt_mean_deg,Camera_Cmd_Bias,Camera_Cmd_SD,Camera_Cmd_MaxAbs,Camera_Cmd_N,Camera_Cmd_grid,Gravity_Cmd_Bias,Gravity_Cmd_SD,Gravity_Cmd_MaxAbs,Gravity_Cmd_N,Gravity_Cmd_grid,Camera_Gravity_Bias,Camera_Gravity_SD,Camera_Gravity_MaxAbs,Camera_Gravity_N,Camera_Gravity_grid
+0,initial,0.000000,0,4,-0.010289,-0.000885,-0.010289,0.007303,0.034601,855,camera,-0.000885,0.129877,0.446758,1545,imu,-0.009139,0.106529,0.333795,855,camera (gravity tilt interpolated onto camera times)
+1,ascending,5.006250,356,4,5.250034,5.156233,0.243784,0.051797,0.344050,826,camera,0.149983,0.250303,1.321930,1544,imu,0.092337,0.226371,0.888246,826,camera (gravity tilt interpolated onto camera times)
+2,ascending,9.998437,711,4,10.242491,10.077846,0.244053,0.039305,0.330278,833,camera,0.079409,0.248578,1.367037,1547,imu,0.165079,0.234374,1.047606,833,camera (gravity tilt interpolated onto camera times)
+3,ascending,15.004688,1067,4,15.304458,15.064702,0.299771,0.018475,0.361213,824,camera,0.060015,0.120860,0.488237,1545,imu,0.239961,0.106550,0.648369,824,camera (gravity tilt interpolated onto camera times)
+4,ascending,19.996875,1422,4,20.302996,20.006561,0.306121,0.030243,0.396684,847,camera,0.009686,0.193348,0.816387,1545,imu,0.294759,0.170415,0.959869,847,camera (gravity tilt interpolated onto camera times)
+5,descending,15.004688,1067,4,15.306855,15.063916,0.302168,0.018307,0.363565,848,camera,0.059228,0.166475,0.621024,1545,imu,0.244176,0.141922,0.685433,848,camera (gravity tilt interpolated onto camera times)
+6,descending,9.998437,711,4,10.204324,10.037902,0.205886,0.036682,0.287513,845,camera,0.039465,0.246877,1.088543,1543,imu,0.167991,0.232548,0.982693,845,camera (gravity tilt interpolated onto camera times)
+7,descending,5.006250,356,4,5.211625,5.116537,0.205375,0.054201,0.305664,836,camera,0.110287,0.244095,2.150652,1543,imu,0.094501,0.219068,1.188385,836,camera (gravity tilt interpolated onto camera times)
+8,descending,0.000000,0,4,0.232730,0.250351,0.232730,0.025091,0.292159,849,camera,0.250351,0.182819,1.230955,1543,imu,-0.017741,0.159524,0.756359,849,camera (gravity tilt interpolated onto camera times)
+9,descending,-5.006250,-356,4,-4.691732,-4.583460,0.314518,0.009058,0.340190,840,camera,0.422790,0.153036,0.981742,1513,imu,-0.106930,0.129786,0.495544,840,camera (gravity tilt interpolated onto camera times)
+10,descending,-9.998437,-711,3,-9.711201,-9.616393,0.287236,0.041715,0.378626,854,camera,0.382044,0.186045,1.840165,1543,imu,-0.095742,0.171884,1.193458,854,camera (gravity tilt interpolated onto camera times)
+11,descending,-15.004688,-1067,3,-14.773876,-14.582321,0.230812,0.069207,0.361323,840,camera,0.422367,0.242302,1.498040,1543,imu,-0.191700,0.217409,1.077860,840,camera (gravity tilt interpolated onto camera times)
+12,descending,-19.996875,-1422,3,-19.677161,-19.417845,0.319714,0.059614,0.421347,847,camera,0.579030,0.201439,1.964572,1543,imu,-0.258772,0.181712,1.191347,847,camera (gravity tilt interpolated onto camera times)
+13,ascending,-15.004688,-1067,3,-14.633293,-14.455366,0.371394,0.069161,0.493925,854,camera,0.549322,0.225979,1.565214,1543,imu,-0.178735,0.208720,0.925715,854,camera (gravity tilt interpolated onto camera times)
+14,ascending,-9.998437,-711,3,-9.630439,-9.548895,0.367999,0.058056,0.476933,863,camera,0.449543,0.245507,1.653534,1544,imu,-0.080599,0.221564,0.917383,863,camera (gravity tilt interpolated onto camera times)
+15,ascending,-5.006250,-356,4,-4.614320,-4.508772,0.391930,0.017573,0.438967,847,camera,0.497478,0.199296,1.279385,1544,imu,-0.105320,0.186469,0.721494,847,camera (gravity tilt interpolated onto camera times)
+16,ascending,0.000000,0,4,0.345494,0.367256,0.345494,0.015057,0.387177,846,camera,0.367256,0.198555,1.544809,1543,imu,-0.023457,0.175315,0.897607,846,camera (gravity tilt interpolated onto camera times)
